@@ -1,0 +1,70 @@
+.heading {
+    color: rgb(255, 255, 255);
+  }
+  form {
+    background-color: rgb(142, 101, 255);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    width: 500px;
+    text-align: center;
+    display: block;
+    margin: auto;
+  }
+  p {
+    color: blue;
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+  }
+  
+  .checkbox {
+    width: 15px;
+    margin-right: 10px;
+  }
+  
+  .text {
+    margin-bottom: 0;
+    color: white; /* Remove default bottom margin on the text */
+  }
+  .login {
+    color: rgb(255, 255, 255);
+    text-align: center;
+  }
+  p a {
+    color: white;
+  }
+  .body {
+    line-height: 40px;
+  }
+  .form-label {
+    color: rgb(0, 0, 0);
+  }
+  .form-error {
+    color: rgb(255, 38, 38);
+  }
+  .form-submitted {
+    color: green;
+    font-weight: bold;
+  }
+  .form-control {
+    width: 350px;
+    margin-left: 70px;
+  }
+  .submit {
+    background-color: rgb(195, 195, 195);
+    border-radius: 30px;
+    width: 300px;
+    color: rgb(36, 36, 36);
+    align-items: center;
+  }
+  /* Media Query for Medium Screens (between 577px and 768px) */
+  @media (min-width: 200px) and (max-width: 1000px) {
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  
