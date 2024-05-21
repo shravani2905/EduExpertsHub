@@ -5,7 +5,7 @@ function Userdashboard() {
 
   return (
     <div className="propertiesdata">
-      <h2 className="user">Welcome, {state.username}</h2>
+      <h2 className="user">Welcome, {state.facultyid}</h2>
       
     </div>
   );

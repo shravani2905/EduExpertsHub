@@ -35,29 +35,18 @@ function Signup() {
             <div className="mb-3">
               <input
                 type="text"
-                id="username"
-                placeholder="Username"
+                id="facultyid"
+                placeholder="Faculty ID"
                 className="form-control"
-                {...register("username", {
-                  required: true,
-                  minLength: 6,
-                  maxLength: 25,
+                {...register("facultyid", {
+                  required: true
                 })}
               />
             </div>
-            {errors.username?.type === "required" && (
-              <p className="form-error">Username is mandatory</p>
+            {errors.facultyid?.type === "required" && (
+              <p className="form-error">Faculty ID is mandatory</p>
             )}
-            {errors.username?.type === "minLength" && (
-              <p className="form-error">
-                Username should be atleast 6 characters
-              </p>
-            )}
-            {errors.username?.type === "maxLength" && (
-              <p className="form-error">
-                Username should be atmost 25 characters
-              </p>
-            )}
+           
             <div className="mb-3">
               <input
                 type="email"
