@@ -1,19 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poetsen+One&display=swap');
 .navbar {
-  background-color: #006769;
+  background-color: #7469B6;
   position: fixed;
   z-index: 2;
+  top:0;
   align-items: center;
   width: 100%;
   margin-bottom: 150px;
-}
-.search-button {
-  background-color: rgb(13, 196, 0);
-  width: 80px;
-  height: 35px;
-  border: none;
-  border: 0.5px solid black;
-  color: rgb(255, 255, 255);
 }
 .List {
   display: flex;

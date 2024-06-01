@@ -1,21 +1,10 @@
 
-.footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 30px;
-    background-color:#9DDE8B;
-    color: white;
-    padding: 20px;
-  }
-  ul {
-    list-style-type: none;
-  }
-  li {
-    margin-top: 5px;
-  }
-  b {
-    color: rgb(47, 47, 47);
-    margin-bottom: 10px;
-  }
-  
+.App-footer {
+  background-color:#AD88C6;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+

@@ -1,0 +1,98 @@
+.qualification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+ /* Ensure the app takes the full height of the viewport */
+    /* Light background color */
+  } 
+.quaheading{
+    padding-top: 60px;
+    text-align: center;
+    color: black;
+}
+  .form-wrapper {
+    /* White background for the form */
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    color: black;
+    
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    width:800px;
+    background-color: aliceblue;
+  }
+  
+ .qualification h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .qualification .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+  }
+  
+  .qualification .form-group label {
+    margin-bottom: 5px;
+    color: black;
+  }
+  
+  .qualification .form-input,
+  .form-select
+   {
+    padding: 8px;
+    font-size: 1rem;
+    color:black;
+    border: 1px solid #000000;
+    border-radius: 5px;
+  }
+  .form-file{
+    padding: 8px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    color:black
+  }
+
+  .form-input {
+    width: 200px;
+  }
+  
+  .form-select {
+    width: 220px;
+  }
+  
+  .form-file {
+    width: 250px;
+  }
+  .form-submit {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #3bbc3d;
+    color:black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center; /* Center the submit button */
+  }
+  .mandatory {
+    color: red;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 5px;
+  }

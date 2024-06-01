@@ -1,55 +1,110 @@
-import { compareSync } from "bcryptjs";
+import "bootstrap/dist/css/bootstrap.min.css"
 import "./Login.css";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-function Login() {
-  let navigate = useNavigate();
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { userAdminLoginThunk } from "../../redux/slices/userAdminSlice"
+function Signin() {
   let {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  function onLoginSubmit(newUser) {
-    fetch(`http://localhost:4000/users?facultyid=${newUser.facultyid}`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((userobjarray) => {
-        if (userobjarray.length === 0) {
-          alert("Invalid Faculty ID");
-        } else {
-          let result = compareSync(newUser.password, userobjarray[0].password);
-          if (result === true) {
-            navigate("/userdashboard", { state: userobjarray[0] });
-          } else {
-            alert("Invalid password");
-          }
-        }
-      })
-      .catch((err) => console.log("Err in registration form", err));
+ 
+  let { isPending, currentUser, loginUserStatus, errorOccurred, errMsg } =
+  useSelector((state) => state.userAdminLoginReducer);
+let dispatch = useDispatch();
+let navigate=useNavigate();
+  
+   function onSigninFormSubmit(userCred) {
+    dispatch(userAdminLoginThunk(userCred));
   }
+
+  useEffect(() => {
+    if (loginUserStatus) {
+      if (currentUser.userType === "user") {
+        navigate("/user-dashboard");
+      }
+      if (currentUser.userType === "admin") {
+        navigate("/admin-dashboard");
+      }
+    }
+  }, [loginUserStatus]);
+
+
+
   return (
     <div className="body">
       <h1 className=" text-center display-5">Form</h1>
-      <form className="mt-5" onSubmit={handleSubmit(onLoginSubmit)}>
-        <h2 className="login">Login</h2>
+      {errorOccurred === true && (
+                <p className="text-center" style={{ color: "var(--crimson)" }}>
+                  {errMsg}
+                </p>
+              )}
+      <form className="mt-5" onSubmit={handleSubmit(onSigninFormSubmit)}>
+        <h2 className="signup">Sign in</h2>
+        <div>
+          <label  htmlFor="author" className="registerlabel">
+        Register as
+                  </label>
+                  <div className="form-check form-check-inline  m-2">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      id="admin"
+                      value="admin"
+                      {...register("userType")}
+                    />
+                    <label
+                    >
+                      Admin
+                    </label>
+                  </div>
+                  <div className="form-check form-check-inline  m-2">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      id="user"
+                      value="user"
+                      {...register("userType")}
+                    />
+                    <label
+                     htmlFor="user"
+                    >
+                      User
+                    </label>
+                  </div>
+                </div>
         <div className="container gap-5">
           <div className="input">
             <div className="mb-3">
               <input
                 type="text"
-                id="facultyid"
+                id="username"
                 placeholder="Faculty ID"
                 className="form-control"
-                {...register("facultyid", {
-                  required: true
+                {...register("username", {
+                  required: true,
+                  minLength: 6,
+                  maxLength: 25,
                 })}
               />
             </div>
-            {errors.facultyid?.type === "required" && (
-              <p className="form-error">Faculty ID  is mandatory</p>
+            {errors.username?.type === "required" && (
+              <p className="form-error">Username is mandatory</p>
             )}
-          
+            {errors.username?.type === "minLength" && (
+              <p className="form-error">
+                Username should be atleast 6 characters
+              </p>
+            )}
+            {errors.username?.type === "maxLength" && (
+              <p className="form-error">
+                Username should be atmost 25 characters
+              </p>
+            )}
+           
             <div className="mb-3">
               <input
                 type="password"
@@ -63,16 +118,12 @@ function Login() {
               <p className="form-error">Password is mandatory</p>
             )}
           </div>
-          <div className="flex">
-            <input className="checkbox" type="checkbox" name=" " id=" "></input>
-            <p className="text">I accept the terms of Use & Privacy Policy</p>
-          </div>
-          <button htmlFor="submit" className="btn mx-3 submit">
-            {" "}
-            Login
+       
+          <button className="btn submit" type="submit">
+            Sign in
           </button>
           <p className="text">
-            Didn't signup?<Link to="/signup">Sign up</Link>
+            Dont have an account?<Link to="/signup">Sign up</Link>
           </p>
         </div>
       </form>
@@ -80,4 +131,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signin;

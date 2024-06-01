@@ -1,0 +1,58 @@
+.basicform {
+    background-color: #6996ac;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    margin-bottom: 10px;
+    
+  
+  }
+  .basicheading {
+    text-align: center;
+    margin-bottom: 10px;
+    padding-top: 70px;
+  }
+  
+  .form-columns {
+    display: flex;
+    justify-content: space-around;
+    gap:20px;
+  }
+  
+  .form-column {
+    flex: 1;
+  }
+  
+  .basicform .form-group {
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  
+  .basicform input[type='text'],
+  input[type='date'] {
+    width: calc(100% - 10px); /* Adjusted width to account for padding */
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  .basicform input[type='file'] {
+    margin-top: 2px;
+    width: calc(100% - 10px); /* Adjusted width to account for padding */
+    padding: 2px;
+    font-size: 14px; /* Reduced font size */
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .basicbutton {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Aligning the office order in the left column */
+  
