@@ -45,7 +45,7 @@ let navigate=useNavigate();
       <form className="mt-5 loginform" onSubmit={handleSubmit(onSigninFormSubmit)}>
         <h2 className="signup">Sign in</h2>
         <div>
-          <label  htmlFor="author" className="registerlabel">
+          <label  htmlFor="admin" className="registerlabel">
         Register as
                   </label>
                   <div className="form-check form-check-inline  m-2">
@@ -70,7 +70,7 @@ let navigate=useNavigate();
                       {...register("userType")}
                     />
                     <label
-                     htmlFor="user"
+                     htmlFor="facultyId"
                     >
                      Faculty
                     </label>
@@ -81,27 +81,27 @@ let navigate=useNavigate();
             <div className="mb-3">
               <input
                 type="text"
-                id="username"
+                id="facultyId"
                 placeholder="Faculty ID"
                 className="form-control"
-                {...register("username", {
+                {...register("facultyId", {
                   required: true,
                   minLength: 6,
                   maxLength: 25,
                 })}
               />
             </div>
-            {errors.username?.type === "required" && (
-              <p className="form-error">Username is mandatory</p>
+            {errors.facultyId?.type === "required" && (
+              <p className="form-error">Faculty ID  is mandatory</p>
             )}
-            {errors.username?.type === "minLength" && (
+            {errors.facultyId?.type === "minLength" && (
               <p className="form-error">
-                Username should be atleast 6 characters
+                Faculty ID should be atleast 6 characters
               </p>
             )}
-            {errors.username?.type === "maxLength" && (
+            {errors.facultyId?.type === "maxLength" && (
               <p className="form-error">
-                Username should be atmost 25 characters
+                Faculty ID  should be atmost 25 characters
               </p>
             )}
            

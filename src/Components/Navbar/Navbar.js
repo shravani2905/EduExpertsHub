@@ -50,7 +50,7 @@ function Navbar() {
           <>
         
             <li>
-            <span className="lead  fs-4 me-3 fw-1"  style={{  color: "#A1DD70" ,fontSize:'1.3rem',textTransform:'capitalize',fontFamily:'fantasy'}}>{currentUser.username}
+            <span className="lead  fs-4 me-3 fw-1"  style={{  color: "#A1DD70" ,fontSize:'1.3rem',textTransform:'capitalize',fontFamily:'fantasy'}}>{currentUser.facultyId}
                    <sup style={{ color:"#F6EEC9",fontSize:'1rem'}}>({currentUser.userType})</sup>
                    </span>
             </li>

@@ -1,33 +1,52 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import './Basic.css';
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Basic = () => {
   const { register, handleSubmit } = useForm();
+  const [err, setErr] = useState("");
+  const { currentUser } = useSelector(
+    (state) => state.userAdminLoginReducer
+  );
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
-  const onSubmit = (data) => {
-    console.log(data);
+  // Create axios instance with token
+  const axiosWithToken = axios.create({
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  const onSubmit = async (data) => {
+    data.facultyId = currentUser.facultyId;
+    data.dateOfModification = new Date();
+
+    try {
+      // Make HTTP PUT request
+      const res = await axiosWithToken.put('http://localhost:4000/user-api/data', data);
+
+      if (res.data.message === "Data added" || res.data.message === "Data modified") {
+        setErr("Successfully submitted the form");
+      
+      } else {
+        setErr(res.data.message);
+      }
+    } catch (error) {
+      setErr("An error occurred while submitting the form");
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
     <div className="container">
       <h5 className="basicheading">Basic Information</h5>
+      {err && <div className="error-message">{err}</div>}
       <form className="basicform" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-columns">
           <div className="form-column">
-            <div className="form-group">
-              <label htmlFor="facultyId">
-                Faculty ID: <span className="required">*</span>
-              </label>
-              <input
-                type="text"
-                id="facultyId"
-                name="facultyId"
-                required
-                placeholder="Enter Faculty ID"
-                {...register('facultyId')}
-              />
-            </div>
             <div className="form-group">
               <label htmlFor="name">
                 Faculty Name: <span className="required">*</span>
@@ -80,12 +99,11 @@ const Basic = () => {
                 {...register('aadharProof')}
               />
             </div>
-            
           </div>
           <div className="form-column">
             <div className="form-group">
-              <label htmlFor="uploadImage">
-                Upload Image: <span className="required">*</span>
+              <label htmlFor="Image">
+                Upload Photo: <span className="required">*</span>
               </label>
               <input
                 type="file"

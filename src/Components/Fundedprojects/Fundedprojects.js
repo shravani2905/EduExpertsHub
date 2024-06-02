@@ -1,5 +1,5 @@
 import React from 'react'
-import "./Fundedprojects.css"
+import "./Fundedproject.css"
 function Fundedprojects() {
   return (
     <div>
