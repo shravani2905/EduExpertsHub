@@ -10,7 +10,7 @@ import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 import Achievements from "./Components/Achievements/Achievements";
 import Basic from "./Components/Basic/Basic";
 import Certifications from "./Components/Certifications/Certifications"
-import Designation from "./Components/Designation/Desgination"
+import Designation from "./Components/Designation/Designation"
 import Fundedprojects from "./Components/Fundedprojects/Fundedprojects";
 import Patents from "./Components/Patents/Patents";
 import Promotions from "./Components/Promotions/Promotions";

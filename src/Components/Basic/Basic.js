@@ -16,7 +16,9 @@ const Basic = () => {
         <div className="form-columns">
           <div className="form-column">
             <div className="form-group">
-              <label htmlFor="facultyId">Faculty ID:</label>
+              <label htmlFor="facultyId">
+                Faculty ID: <span className="required">*</span>
+              </label>
               <input
                 type="text"
                 id="facultyId"
@@ -27,7 +29,9 @@ const Basic = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="name">Faculty Name:</label>
+              <label htmlFor="name">
+                Faculty Name: <span className="required">*</span>
+              </label>
               <input
                 type="text"
                 id="name"
@@ -38,7 +42,9 @@ const Basic = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="aadhar">Aadhar Card Number:</label>
+              <label htmlFor="aadhar">
+                Aadhar Card Number: <span className="required">*</span>
+              </label>
               <input
                 type="text"
                 id="aadhar"
@@ -49,7 +55,9 @@ const Basic = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="pan">PAN Card Number:</label>
+              <label htmlFor="pan">
+                PAN Card Number: <span className="required">*</span>
+              </label>
               <input
                 type="text"
                 id="pan"
@@ -59,10 +67,10 @@ const Basic = () => {
                 {...register('pan')}
               />
             </div>
-          
-          
             <div className="form-group">
-              <label htmlFor="aadharProof">Aadhar Card Proof:</label>
+              <label htmlFor="aadharProof">
+                Aadhar Card Proof: <span className="required">*</span>
+              </label>
               <input
                 type="file"
                 id="aadharProof"
@@ -72,10 +80,26 @@ const Basic = () => {
                 {...register('aadharProof')}
               />
             </div>
-            </div>
-            <div className="form-column">
+            
+          </div>
+          <div className="form-column">
             <div className="form-group">
-              <label htmlFor="panProof">PAN Card Proof:</label>
+              <label htmlFor="uploadImage">
+                Upload Image: <span className="required">*</span>
+              </label>
+              <input
+                type="file"
+                id="uploadImage"
+                name="uploadImage"
+                accept="image/*"
+                required
+                {...register('uploadImage')}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="panProof">
+                PAN Card Proof: <span className="required">*</span>
+              </label>
               <input
                 type="file"
                 id="panProof"
@@ -86,7 +110,9 @@ const Basic = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="dateOfJoining">Date of Joining:</label>
+              <label htmlFor="dateOfJoining">
+                Date of Joining: <span className="required">*</span>
+              </label>
               <input
                 type="date"
                 id="dateOfJoining"
@@ -96,7 +122,9 @@ const Basic = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="joiningOrder">Joining Order:</label>
+              <label htmlFor="joiningOrder">
+                Joining Order: <span className="required">*</span>
+              </label>
               <input
                 type="file"
                 id="joiningOrder"
@@ -106,17 +134,19 @@ const Basic = () => {
                 {...register('joiningOrder')}
               />
             </div>
-            <div className="form-group office-order">
-  <label htmlFor="officeOrder">Office Order:</label>
-  <input
-    type="file"
-    id="officeOrder"
-    name="officeOrder"
-    accept="application/pdf"
-    required
-    {...register('officeOrder')}
-  />
-</div>
+            <div className="form-group">
+              <label htmlFor="officeOrder">
+                Office Order: <span className="required">*</span>
+              </label>
+              <input
+                type="file"
+                id="officeOrder"
+                name="officeOrder"
+                accept="application/pdf"
+                required
+                {...register('officeOrder')}
+              />
+            </div>
           </div>
         </div>
         <button className="btn basicbutton" type="submit">
