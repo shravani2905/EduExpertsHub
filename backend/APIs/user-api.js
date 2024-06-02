@@ -19,7 +19,7 @@ userApp.use((req, res, next) => {
 //User registration
 userApp.post('/user', expressAsyncHandler(async (req, res) => {
     const newUser = req.body;
-    const dbuser = await userscollection.findOne({ username: newUser.username });
+    const dbuser = await userscollection.findOne({ facultyId: newUser.facultyId });
     if (dbuser != null) {
         res.send({ message: "user exists" });
     } else {
