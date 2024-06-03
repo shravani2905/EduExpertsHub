@@ -1,82 +1,104 @@
-.achievementsform
-{
-  background-color: rgb(90, 171, 191);
-  margin-top: 70px;
-
+.achievementsform {
+  background-color: #d4eaf5;
   display: block;
-  margin: auto;
-  width:500px;
-
-  padding: 10px;
+  margin: 170px auto;
+  width: 500px;
+  padding: 30px;
   border-radius: 10px;
-  
   text-align: center;
-  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.achievements-form-container-custom{
-    margin-top: 80px;
+
+.achievements-form-container-custom {
+  margin-top: 100px;
 }
-  .h2-custom {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .form-group-custom {
-    margin-bottom: 15px;
-  }
-  
-  .label-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .label-custom {
-    margin-bottom: 5px;
-    font-weight: bold;
-    margin-right: 50px; /* Add margin to separate label from button */
-  }
-  
-  .achievementsform-button-custom{
-    padding: 8px 16px;
-    background-color: #357bc2; /* Green color */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .achievementsform-button-submit-custom {
-    padding: 8px 16px;
-    background-color: #09583b; /* Green color */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  .achievementsform-input-custom,
-  .textarea-custom {
-    width: calc(50% - 5px);
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: white;
-    margin-right: 5px;
-  }
-  
-  .achievementsform-input-custom[type="file"] {
-    padding: 5px; /* Slightly smaller padding for file inputs */
-  }
-  
-  .file-input-group-custom {
-    margin-bottom: 10px;
-    display: flex;
-  }
-  
-  .error-custom {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-  }
+
+.h2-custom {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #085f8d;
+  font-size: 30px;
+}
+
+.form-group-custom {
+  margin-bottom: 20px;
+}
+
+.label-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.label-custom {
+  font-weight: bold;
+  color: #333;
+}
+
+.achievementsform-button-custom {
+  padding: 8px 16px;
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.achievementsform-button-custom:hover {
+  background-color: #0056b3;
+}
+
+.achievementsform-button-submit-custom {
+  padding: 10px 20px;
+  background-color: #198754;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.achievementsform-button-submit-custom:hover {
+  background-color: #146c43;
+}
+
+.achievementsform-input-custom,
+.textarea-custom {
+  width: calc(50% - 5px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+  margin-right: 5px;
+}
+
+.achievementsform-input-custom[type="file"] {
+  padding: 5px;
+}
+
+.file-input-group-custom {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.file-name-custom {
+  margin-left: 10px;
+  font-style: italic;
+  color: #555;
+}
+
+.error-custom {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Show the error message only for empty achievement fields */
+.achievementsform-input-custom:not([type="file"]):not(:placeholder-shown):invalid + .error-custom {
+  display: block;
+}

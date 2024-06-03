@@ -12,15 +12,15 @@ function Qualification() {
 
   return (
     <div className="qualification">
-      <div className="form-wrapper">
-         <h4 className='quaheading'>Educational Qualifications</h4>
-        <form onSubmit={handleSubmit(onSubmit)} className="form-container">
+      <div className="qualification-form-wrapper">
+         <h4 className='qualification-quaheading'>Educational Qualifications</h4>
+        <form onSubmit={handleSubmit(onSubmit)} className="qualification-form-container">
          
           {/* 10th Details */}
-          <div className="form-row">
-            <div className="form-group">
+          <div className="qualification-form-row">
+            <div className="qualification-form-group">
               <label>
-                Education Board <span className="mandatory">*</span>
+                Education Board <span className="qualification-mandatory">*</span>
               </label>
               <Controller
                 name="education"
@@ -28,7 +28,7 @@ function Qualification() {
                 defaultValue=""
                 rules={{ required: "Education Board is required" }}
                 render={({ field }) => (
-                  <select {...field} className="form-select">
+                  <select {...field} className="qualification-form-select ml-2">
                     <option value="">Select Education Board</option>
                     <option value="ssc">SSC</option>
                     <option value="cbse">CBSE</option>
@@ -36,12 +36,12 @@ function Qualification() {
                   </select>
                 )}
               />
-              {errors.education && <span className="error-message">{errors.education.message}</span>}
+              {errors.education && <span className="qualification-error-message">{errors.education.message}</span>}
             </div>
             {watchEducation === 'ssc' && (
-              <div className="form-group">
+              <div className="qualification-form-group">
                 <label>
-                  GPA <span className="mandatory">*</span>
+                  GPA <span className="qualification-mandatory">*</span>
                 </label>
                 <input
                   type="number"
@@ -51,15 +51,15 @@ function Qualification() {
                     min: { value: 0, message: "GPA must be between 0 and 10" },
                     max: { value: 10, message: "GPA must be between 0 and 10" },
                   })}
-                  className="form-input"
+                  className="qualification-form-input"
                 />
-                {errors.gpa && <span className="error-message">{errors.gpa.message}</span>}
+                {errors.gpa && <span className="qualification-error-message">{errors.gpa.message}</span>}
               </div>
             )}
             {(watchEducation === 'cbse' || watchEducation === 'icse') && (
-              <div className="form-group">
+              <div className="qualification-form-group">
                 <label>
-                  Percentage <span className="mandatory">*</span>
+                  Percentage <span className="qualification-mandatory">*</span>
                 </label>
                 <input
                   type="number"
@@ -69,25 +69,25 @@ function Qualification() {
                     min: { value: 0, message: "Percentage must be between 0 and 100" },
                     max: { value: 100, message: "Percentage must be between 0 and 100" },
                   })}
-                  className="form-input"
+                  className="qualification-form-input"
                 />
-                {errors.percentage && <span className="error-message">{errors.percentage.message}</span>}
+                {errors.percentage && <span className="qualification-error-message">{errors.percentage.message}</span>}
               </div>
             )}
-            <div className="form-group">
+            <div className="qualification-form-group">
               <label>
-                Certificate <span className="mandatory">*</span>
+                Certificate <span className="qualification-mandatory">*</span>
               </label>
-              <input type="file" {...control.register('certificate10', { required: "Certificate is required" })} className="form-file" />
-              {errors.certificate10 && <span className="error-message">{errors.certificate10.message}</span>}
+              <input type="file" {...control.register('certificate10', { required: "Certificate is required" })} className="qualification-form-file" />
+              {errors.certificate10 && <span className="qualification-error-message">{errors.certificate10.message}</span>}
             </div>
           </div>
 
           {/* Inter Details */}
-          <div className="form-row">
-            <div className="form-group">
+          <div className="qualification-form-row">
+            <div className="qualification-form-group">
               <label>
-                Inter Percentage <span className="mandatory">*</span>
+                Inter Percentage <span className="qualification-mandatory">*</span>
               </label>
               <input
                 type="number"
@@ -97,24 +97,24 @@ function Qualification() {
                   min: { value: 0, message: "Percentage must be between 0 and 100" },
                   max: { value: 100, message: "Percentage must be between 0 and 100" },
                 })}
-                className="form-input"
+                className="qualification-form-input"
               />
-              {errors.interPercentage && <span className="error-message">{errors.interPercentage.message}</span>}
+              {errors.interPercentage && <span className="qualification-error-message">{errors.interPercentage.message}</span>}
             </div>
-            <div className="form-group">
+            <div className="qualification-form-group">
               <label>
-                Certificate <span className="mandatory">*</span>
+                Certificate <span className="qualification-mandatory">*</span>
               </label>
-              <input type="file" {...control.register('certificateInter', { required: "Certificate is required" })} className="form-file" />
-              {errors.certificateInter && <span className="error-message">{errors.certificateInter.message}</span>}
+              <input type="file" {...control.register('certificateInter', { required: "Certificate is required" })} className="qualification-form-file" />
+              {errors.certificateInter && <span className="qualification-error-message">{errors.certificateInter.message}</span>}
             </div>
           </div>
 
           {/* UG Details */}
-          <div className="form-row">
-            <div className="form-group">
+          <div className="qualification-form-row">
+            <div className="qualification-form-group">
               <label>
-                UG Specialization <span className="mandatory">*</span>
+                UG Percentage <span className="qualification-mandatory">*</span>
               </label>
               <input
                 type="number"
@@ -124,13 +124,13 @@ function Qualification() {
                   min: { value: 0, message: "Percentage must be between 0 and 100" },
                   max: { value: 100, message: "Percentage must be between 0 and 100" },
                 })}
-                className="form-input"
+                className="qualification-form-input"
               />
-              {errors.ugPercentage && <span className="error-message">{errors.ugPercentage.message}</span>}
+              {errors.ugPercentage && <span className="qualification-error-message">{errors.ugPercentage.message}</span>}
             </div>
-            <div className="form-group">
+            <div className="qualification-form-group">
               <label>
-                UG Specialization <span className="mandatory">*</span>
+                UG Specialization <span className="qualification-mandatory">*</span>
               </label>
               <Controller
                 name="ugBranch"
@@ -138,7 +138,7 @@ function Qualification() {
                 defaultValue=""
                 rules={{ required: "UG Branch is required" }}
                 render={({ field }) => (
-                  <select {...field} className="form-select">
+                  <select {...field} className="qualification-form-select">
                     <option value="">Select UG Specialization</option>
                     <option value="CSE">CSE</option>
                     <option value="ECE">ECE</option>
@@ -146,22 +146,22 @@ function Qualification() {
                   </select>
                 )}
               />
-              {errors.ugBranch && <span className="error-message">{errors.ugBranch.message}</span>}
+              {errors.ugBranch && <span className="qualification-error-message">{errors.ugBranch.message}</span>}
             </div>
-            <div className="form-group">
+            <div className="qualification-form-group">
               <label>
-                Certificate <span className="mandatory">*</span>
+                Certificate <span className="qualification-mandatory">*</span>
               </label>
-              <input type="file" {...control.register('certificateUG', { required: "Certificate is required" })} className="form-file" />
-              {errors.certificateUG && <span className="error-message">{errors.certificateUG.message}</span>}
+              <input type="file" {...control.register('certificateUG', { required: "Certificate is required" })} className="qualification-form-file" />
+              {errors.certificateUG && <span className="qualification-error-message">{errors.certificateUG.message}</span>}
             </div>
           </div>
 
           {/* PG Details */}
-          <div className="form-row">
-            <div className="form-group">
+          <div className="qualification-form-row">
+            <div className="qualification-form-group">
               <label>
-                PG Percentage <span className="mandatory">*</span>
+                PG Percentage <span className="qualification-mandatory">*</span>
               </label>
               <input
                 type="number"
@@ -171,13 +171,13 @@ function Qualification() {
                   min: { value: 0, message: "Percentage must be between 0 and 100" },
                   max: { value: 100, message: "Percentage must be between 0 and 100" },
                 })}
-                className="form-input"
+                className="qualification-form-input"
               />
-              {errors.pgPercentage && <span className="error-message">{errors.pgPercentage.message}</span>}
+              {errors.pgPercentage && <span className="qualification-error-message">{errors.pgPercentage.message}</span>}
             </div>
-            <div className="form-group">
+            <div className="qualification-form-group">
               <label>
-                PG Specialization <span className="mandatory">*</span>
+                PG Specialization <span className="qualification-mandatory">*</span>
               </label>
               <Controller
                 name="pgBranch"
@@ -185,7 +185,7 @@ function Qualification() {
                 defaultValue=""
                 rules={{ required: "PG Branch is required" }}
                 render={({ field }) => (
-                  <select {...field} className="form-select">
+                  <select {...field} className="qualification-form-select">
                     <option value="">Select PG Specialization</option>
                     <option value="CSE">CSE</option>
                     <option value="ECE">ECE</option>
@@ -193,20 +193,20 @@ function Qualification() {
                   </select>
                 )}
               />
-              {errors.pgBranch && <span className="error-message">{errors.pgBranch.message}</span>}
+              {errors.pgBranch && <span className="qualification-error-message">{errors.pgBranch.message}</span>}
             </div>
-            <div className="form-group">
+            <div className="qualification-form-group">
               <label>
-                Certificate <span className="mandatory">*</span>
+                Certificate <span className="qualification-mandatory">*</span>
               </label>
-              <input type="file" {...control.register('certificatePG', { required: "Certificate is required" })} className="form-file" />
-              {errors.certificatePG && <span className="error-message">{errors.certificatePG.message}</span>}
+              <input type="file" {...control.register('certificatePG', { required: "Certificate is required" })} className="qualification-form-file" />
+              {errors.certificatePG && <span className="qualification-error-message">{errors.certificatePG.message}</span>}
             </div>
           </div>
 
           {/* PhD Details */}
-          <div className="form-row">
-            <div className="form-group">
+          <div className="qualification-form-row">
+            <div className="qualification-form-group">
               <label>PhD Percentage</label>
               <input
                 type="number"
@@ -215,18 +215,18 @@ function Qualification() {
                   min: { value: 0, message: "Percentage must be between 0 and 100" },
                   max: { value: 100, message: "Percentage must be between 0 and 100" },
                 })}
-                className="form-input"
+                className="qualification-form-input"
               />
-              {errors.phdPercentage && <span className="error-message">{errors.phdPercentage.message}</span>}
+              {errors.phdPercentage && <span className="qualification-error-message">{errors.phdPercentage.message}</span>}
             </div>
-            <div className="form-group">
+            <div className="qualification-form-group">
               <label>PhD Specialization</label>
               <Controller
                 name="phdBranch"
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <select {...field} className="form-select">
+                  <select {...field} className="qualification-form-select">
                     <option value="">Select PhD Specialization</option>
                     <option value="CSE">CSE</option>
                     <option value="ECE">ECE</option>
@@ -235,13 +235,13 @@ function Qualification() {
                 )}
               />
             </div>
-            <div className="form-group">
+            <div className="qualification-form-group">
               <label>Certificate</label>
-              <input type="file" {...control.register('certificatePhD')} className="form-file" />
+              <input type="file" {...control.register('certificatePhD')} className="qualification-form-file" />
             </div>
           </div>
 
-          <button type="submit" className="form-submit">Submit</button>
+          <button type="submit" className="qualification-form-submit">Submit</button>
         </form>
       </div>
     </div>

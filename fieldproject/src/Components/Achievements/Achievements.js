@@ -3,12 +3,17 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import './Achievements.css';
 
 const AchievementsForm = () => {
-  const { register, handleSubmit, control, formState: { errors } } = useForm();
+  const { register, handleSubmit, control, watch, formState: { errors } } = useForm();
   const { fields: profFields, append: appendProf } = useFieldArray({ control, name: "professionalAchievements" });
   const { fields: persFields, append: appendPers } = useFieldArray({ control, name: "personalAchievements" });
 
   const [profFileNames, setProfFileNames] = useState({});
   const [persFileNames, setPersFileNames] = useState({});
+  const [profErrors, setProfErrors] = useState({});
+  const [persErrors, setPersErrors] = useState({});
+
+  const watchProfAchievements = watch("professionalAchievements", []);
+  const watchPersAchievements = watch("personalAchievements", []);
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -43,11 +48,21 @@ const AchievementsForm = () => {
     }
   };
 
+  const handleAddField = (appendFunc, watchAchievements, setErrors, errors) => {
+    const lastIndex = watchAchievements.length - 1;
+    if (lastIndex >= 0 && !watchAchievements[lastIndex]?.text) {
+      setErrors(prev => ({ ...prev, [lastIndex]: true }));
+    } else {
+      appendFunc({ text: "", file: null });
+      setErrors({});
+    }
+  };
+
   return (
     <div className="achievements-form-container-custom">
-
       <form className="achievementsform" onSubmit={handleSubmit(onSubmit)}>
-      <h4 className="h2-custom">Achievements</h4>
+        <h4 className="h2-custom">Achievements</h4>
+
         <div className="form-group-custom">
           <div className="file-input-group-custom">
             <div className="label-container">
@@ -55,7 +70,8 @@ const AchievementsForm = () => {
               <button
                 type="button"
                 className="achievementsform-button-custom"
-                onClick={() => appendProf({ text: "", file: "" })}
+                onClick={() => handleAddField(appendProf, watchProfAchievements, setProfErrors, profErrors)}
+                disabled={profFields.length > 0 && !watchProfAchievements[profFields.length - 1]?.text}
               >
                 {profFields.length === 0 ? 'Upload file' : 'Add new file'}
               </button>
@@ -82,6 +98,9 @@ const AchievementsForm = () => {
               {errors.professionalAchievements && errors.professionalAchievements[index] && (
                 <span className="error-custom">This field is required</span>
               )}
+              {profErrors[index] && (
+                <span className="error-custom">This field should be filled before adding a new file</span>
+              )}
             </div>
           ))}
         </div>
@@ -92,8 +111,9 @@ const AchievementsForm = () => {
               <label className="label-custom">Upload Personal Achievements:</label>
               <button
                 type="button"
-                className="achievementsform-button-custom"
-                onClick={() => appendPers({ text: "", file: "" })}
+                className="achievementsform-button-custom mx-4"
+                onClick={() => handleAddField(appendPers, watchPersAchievements, setPersErrors, persErrors)}
+                disabled={persFields.length > 0 && !watchPersAchievements[persFields.length - 1]?.text}
               >
                 {persFields.length === 0 ? 'Upload file' : 'Add new file'}
               </button>
@@ -120,9 +140,13 @@ const AchievementsForm = () => {
               {errors.personalAchievements && errors.personalAchievements[index] && (
                 <span className="error-custom">This field is required</span>
               )}
+              {persErrors[index] && (
+                <span className="error-custom">This field should be filled before adding a new file</span>
+              )}
             </div>
           ))}
         </div>
+
         <button type="submit" className="achievementsform-button-submit-custom">Submit</button>
       </form>
     </div>
