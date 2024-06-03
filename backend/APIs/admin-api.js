@@ -17,7 +17,7 @@ adminApp.use((req,res,next)=>{
 //Author registration
 adminApp.post('/user', expressAsyncHandler(async (req, res) => {
     const newUser = req.body;
-    const dbuser = await adminscollection.findOne({ username: newUser.username });
+    const dbuser = await adminscollection.findOne({facultyId: newUser.facultyId });
     if (dbuser != null) {
         res.send({ message: "user exists" });
     } else {
@@ -30,7 +30,7 @@ adminApp.post('/user', expressAsyncHandler(async (req, res) => {
 //Author Login
 adminApp.post('/login', expressAsyncHandler(async (req, res) => {
     const userCred = req.body;
-    const dbUser = await adminscollection.findOne({ username: userCred.username });
+    const dbUser = await adminscollection.findOne({ facultyId: newUser.facultyId });
     if (dbUser === null) {
         res.send({ message: "Invalid username" });
     } else {
