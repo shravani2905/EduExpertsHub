@@ -1,10 +1,10 @@
 .basic-form-container {
-  padding: 20px;
+  padding: 10px;
   background-color: #b2c9d4;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 600px;
-  margin: 60px auto; /* Centering horizontally and adding top margin */
+  margin: 10px auto; /* Centering horizontally and adding top margin */
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -81,5 +81,5 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding-top: 70px; /* Adjust this value based on the height of your navbar */
+  padding-top: 50px; /* Adjust this value based on the height of your navbar */
 }
