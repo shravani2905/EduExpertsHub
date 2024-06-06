@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import './Basic.css';
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Basic = () => {
@@ -12,7 +11,6 @@ const Basic = () => {
   const { currentUser } = useSelector(
     (state) => state.userAdminLoginReducer
   );
-  const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
   // Create axios instance with token
@@ -127,7 +125,7 @@ const Basic = () => {
                   type="file"
                   id="aadharProof"
                   name="aadharProof"
-                  accept="image/*"
+                  accept="image/*,application/pdf"
                   required
                   {...register('aadharProof')}
                   className="basic-form-input-file"
@@ -141,7 +139,7 @@ const Basic = () => {
                   type="file"
                   id="panProof"
                   name="panProof"
-                  accept="image/*"
+                  accept="image/*,application/pdf"
                   required
                   {...register('panProof')}
                   className="basic-form-input-file"
@@ -156,7 +154,7 @@ const Basic = () => {
                   type="file"
                   id="joiningOrder"
                   name="joiningOrder"
-                  accept="application/pdf"
+                  accept="image/*,application/pdf"
                   required
                   {...register('joiningOrder')}
                   className="basic-form-input-file"
@@ -170,7 +168,7 @@ const Basic = () => {
                   type="file"
                   id="officeOrder"
                   name="officeOrder"
-                  accept="application/pdf"
+                  accept="image/*,application/pdf"
                   required
                   {...register('officeOrder')}
                   className="basic-form-input-file"
