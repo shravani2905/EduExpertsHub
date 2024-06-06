@@ -7,7 +7,6 @@ const expressAsyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const verifyToken=require('../Middlewares/verfiyToken')
-
 let userscollection;
 let articlescollection;
 userApp.use((req, res, next) => {
@@ -40,32 +39,49 @@ userApp.post('/login', expressAsyncHandler(async (req, res) => {
         if (status === false) {
             res.send({ message: "Invalid password" });
         } else {
-            const signedToken = jwt.sign({ username: dbUser.facultyId }, process.env.SECRET_KEY, { expiresIn: '1d' });
+            const signedToken = jwt.sign({ facultyId: dbUser.facultyId }, process.env.SECRET_KEY, { expiresIn: '1d' });
             res.send({ message: "login success", token: signedToken, user: dbUser });
         }
     }
 }));
-
 userApp.put('/data', verifyToken, expressAsyncHandler(async (req, res) => {
-    // Extract modified data from the request body
-    const modifiedData = req.body;
-
     try {
+        // Extract modified data from the request body
+        const modifiedData = req.body;
+        const { facultyId, dateOfModification, ...restOfData } = modifiedData;
+
         // Check if data with the specified facultyId already exists
-        let existingData = await userinfo.findOne({ facultyId: modifiedData.facultyId });
+        let existingData = await userinfo.findOne({ facultyId: facultyId });
 
         if (existingData) {
-            // Append to the existing data
-            let updatedData = await userinfo.updateOne(
-                { facultyId: modifiedData.facultyId },
-                { $push: modifiedData }
+            // Prepare update fields
+            let updateFields = { dateOfModification }; // Always update dateOfModification
+
+            // Append or update other fields
+            for (let key in restOfData) {
+                if (Array.isArray(restOfData[key])) {
+                    if (!updateFields[key]) {
+                        updateFields[key] = [];
+                    }
+                    updateFields[key] = { $each: restOfData[key] };
+                } else {
+                    updateFields[key] = restOfData[key];
+                }
+            }
+
+            await userinfo.updateOne(
+                { facultyId: facultyId },
+                {
+                    $set: updateFields
+                }
             );
-            
+
             // Fetch the latest updated data
-            let latestData = await userinfo.findOne({ facultyId: modifiedData.facultyId });
-            res.status(200).send({ message: "Data appended", data: latestData });
+            let latestData = await userinfo.findOne({ facultyId: facultyId });
+            res.status(200).send({ message: "Data modified", data: latestData });
         } else {
             // Insert the new data if it doesn't exist
+            modifiedData.facultyId = facultyId; // Ensure facultyId is set
             let savedData = await userinfo.insertOne(modifiedData);
             res.status(201).send({ message: "Data added", data: savedData });
         }

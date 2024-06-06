@@ -56,7 +56,7 @@ let navigate=useNavigate();
                       value="admin"
                       {...register("userType")}
                     />
-                    <label
+                    <label  htmlFor="admin"
                     >
                       Admin
                     </label>
@@ -70,7 +70,7 @@ let navigate=useNavigate();
                       {...register("userType")}
                     />
                     <label
-                     htmlFor="facultyId"
+                     htmlFor="user"
                     >
                      Faculty
                     </label>

@@ -6,7 +6,6 @@ adminApp.use(exp.json());
 const expressAsyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 const verifyToken=require('../Middlewares/verfiyToken')
-
 require('dotenv').config();
 let adminscollection;
 //get usercollection app
@@ -30,15 +29,15 @@ adminApp.post('/user', expressAsyncHandler(async (req, res) => {
 //Author Login
 adminApp.post('/login', expressAsyncHandler(async (req, res) => {
     const userCred = req.body;
-    const dbUser = await adminscollection.findOne({ facultyId: newUser.facultyId });
+    const dbUser = await adminscollection.findOne({ facultyId: userCred.facultyId });
     if (dbUser === null) {
-        res.send({ message: "Invalid username" });
+        res.send({ message: "Invalid FacultyID" });
     } else {
         const status = await bcryptjs.compare(userCred.password, dbUser.password);
         if (status === false) {
             res.send({ message: "Invalid password" });
         } else {
-            const signedToken = jwt.sign({ username: dbUser.username }, process.env.SECRET_KEY, { expiresIn: '1d' });
+            const signedToken = jwt.sign({ facultyId: dbUser.facultyId }, process.env.SECRET_KEY, { expiresIn: '1d' });
             res.send({ message: "login success", token: signedToken, user: dbUser });
         }
     }

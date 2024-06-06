@@ -1,9 +1,9 @@
 import React from 'react'
-
+import "./AdminDashboard.css"
 function AdminDashboard() {
   return (
     <div>
-      Admin Dashboard
+     <h1 className='adminheading'>AdminDashboard</h1>
     </div>
   )
 }

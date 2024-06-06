@@ -1,19 +1,49 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import './Qualification.css';
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Qualification() {
   const { control, handleSubmit, watch, formState: { errors } } = useForm();
   const watchEducation = watch('education');
+  const [err, setErr] = useState("");
+  const { currentUser } = useSelector(
+    (state) => state.userAdminLoginReducer
+  );
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  // Create axios instance with token
+  const axiosWithToken = axios.create({
+    headers: { Authorization: `Bearer ${token}` }
+  });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    data.facultyId= currentUser.facultyId;
+    data.dateOfModification = new Date();
+    try {
+      // Make HTTP PUT request
+      const res = await axiosWithToken.put('http://localhost:4000/user-api/data', data);
+
+      if (res.data.message === "Data added" || res.data.message === "Data modified") {
+        setErr("Successfully submitted the form");
+      
+      } else {
+        setErr(res.data.message);
+      }
+    } catch (error) {
+      setErr("An error occurred while submitting the form");
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
     <div className="qualification">
       <div className="qualification-form-wrapper">
          <h4 className='qualification-quaheading'>Educational Qualifications</h4>
+         {err && <div className="basic-form-error-message">{err}</div>}
         <form onSubmit={handleSubmit(onSubmit)} className="qualification-form-container">
          
           {/* 10th Details */}
