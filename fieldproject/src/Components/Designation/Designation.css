@@ -4,18 +4,18 @@
   justify-content: center;
   align-items: center;
   height: 100vh; /* Use the full height of the viewport */
-  padding: 20px;
+  padding: 15px;
 }
 
 .designation-form {
-  background-color: #f3e6e6;
-  padding: 40px;
+  background-color:  #d4eaf5;
+  padding: 35px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 500px;
   text-align: center;
-  margin-top: 50px;
+  margin-top:15px;
 }
 
 .designation-form-heading {

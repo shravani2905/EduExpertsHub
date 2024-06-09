@@ -42,9 +42,11 @@ function Qualification() {
   return (
     <div className="qualification">
       <div className="qualification-form-wrapper">
-         <h4 className='qualification-quaheading'>Educational Qualifications</h4>
+       
          {err && <div className="basic-form-error-message">{err}</div>}
         <form onSubmit={handleSubmit(onSubmit)} className="qualification-form-container">
+         
+        <h4 className='qualification-quaheading'>Educational Qualifications</h4>
          
           {/* 10th Details */}
           <div className="qualification-form-row">

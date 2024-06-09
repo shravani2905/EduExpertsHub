@@ -2,33 +2,37 @@
   display: block;
   margin: auto;
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
   text-align: center;
   color: black;
 }
 
 .qualification-quaheading {
-  padding-top: 60px;
+  padding-top: 30px;
   margin-bottom: 20px;
   text-align: center;
   color: black;
 }
 
 .qualification-form-wrapper {
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   width: 100%;
   color: black;
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 .qualification-form-container {
   display: flex;
   margin: auto;
+  margin-top: 30px;
   flex-direction: column;
   width: 800px;
-  background-color: aliceblue;
-  padding: 8px;
+  background-color:  #d4eaf5;
+  padding: 5px;
+ 
 }
 
 .qualification h2 {
@@ -51,11 +55,13 @@
 .qualification-form-group label {
   margin-bottom: 5px;
 }
-
+label{
+  font-size: 1rem;
+}
 .qualification-form-input,
 .qualification-form-select {
   padding: 8px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: black;
   border: 1px solid #000000;
   border-radius: 5px;
@@ -63,7 +69,7 @@
 
 .qualification-form-file {
   padding: 8px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   border: none;
   border-radius: 5px;
   color: black;
@@ -98,6 +104,6 @@
 
 .qualification-error-message {
   color: red;
-  font-size: 0.875em;
+  font-size: 0.7em;
   margin-top: 5px;
 }

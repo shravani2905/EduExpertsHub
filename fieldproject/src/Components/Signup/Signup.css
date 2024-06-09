@@ -7,7 +7,7 @@
   margin-top: 10px;
 }
 .signupform {
-  background-color: rgb(142, 101, 255);
+  background-color: #ffc0cb;
   color: white;
   padding: 10px;
   border-radius: 10px;
@@ -15,9 +15,10 @@
   text-align: center;
   display: block;
   margin: auto;
+  margin-top: 100px;
 }
 p {
-  color: blue;
+  color:black;
 }
 .flex {
   display: flex;
@@ -59,11 +60,15 @@ p a {
   margin-left: 70px;
 }
 .submit {
-  background-color: rgb(195, 195, 195);
+  background-color: white;
   border-radius: 30px;
   width: 300px;
   color: rgb(36, 36, 36);
   align-items: center;
+}
+.submit:hover{
+background-color: rgb(203, 225, 245);
+color: black;
 }
 /* Media Query for Medium Screens (between 577px and 768px) */
 @media (min-width: 200px) and (max-width: 1000px) {

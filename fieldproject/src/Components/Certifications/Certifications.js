@@ -47,7 +47,7 @@ const Certifications = () => {
     <div className="certifications-form-container-custom">
       
       <form className="certificationsform" onSubmit={handleSubmit(onSubmit)}>
-      <h4 className="h2-custom text-warning text-center">Faculty Certifications Form</h4>
+      <h4 className="hd text-center">Faculty Certifications Form</h4>
         <div className="form-group-custom">
           <div className="file-input-group-custom">
             <div className="label-container">

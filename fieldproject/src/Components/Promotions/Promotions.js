@@ -37,7 +37,7 @@ const PromotionsForm = () => {
   return (
     <div className="promotions-form-wrapper">
       <form className="promotions-form-container" onSubmit={handleSubmit}>
-        <h1 className="promotions-form-heading">Promotions</h1>
+        <h3 className="promotions-form-heading">Promotions</h3>
         <div className="promotions-form-row">
           <label htmlFor="promotedTo" className="promotions-form-label">Promoted To:</label>
           <select 

@@ -1,27 +1,26 @@
 .certificationsform
 {
     width: 500px;
-    background-color: rgb(90, 171, 191);
-    margin-top: 80px;
-  padding: 10px;
+    background-color:  #d4eaf5;
+    
+  padding: 20px;
   border-radius: 10px;
   text-align: center;
   display: block;
   margin: auto;
+  margin-top: 140px;
   border-radius: 10px;
 }
-  
-.certifications-form-container-custom{
-  margin-top: 80px;
-}
-  .h2-custom {
+
+
+  .hd {
     text-align: center;
-   
+   color: black;
     margin-bottom: 40px;
   }
   
   .form-group-custom {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
   
   .label-container {
@@ -46,7 +45,7 @@
   }
   .certificationsform-button-submit-custom{
     padding: 8px 16px;
-    background-color: #06472f; /* Green */
+    background-color:  #198754; /* Green */
     border: none;
     color: white;
     border-radius: 4px;
@@ -63,6 +62,7 @@
     box-sizing: border-box;
     background-color: white;
     margin-right: 5px;
+    font-size: 1rem;
   }
   
   .certificationsform-input-custom[type="file"] {

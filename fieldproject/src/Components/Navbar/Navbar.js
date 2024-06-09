@@ -20,7 +20,7 @@ function Navbar() {
         width="50px"
         alt="Logo"
       />
-      <h3 className="heading">Edu Experts Hub</h3>
+      <h3 className="heading mx-2">Edu Experts Hub</h3>
       <ul className="List">
         {loginUserStatus === false ? (
           <>

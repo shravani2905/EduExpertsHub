@@ -1,10 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .basic-form-container {
   padding: 10px;
-  background-color: #b2c9d4;
+  background-color:  #d4eaf5;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 600px;
-  margin: 10px auto; /* Centering horizontally and adding top margin */
+ 
+  margin: auto; /* Centering horizontally and adding top margin */
+  margin-top: 30px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -45,7 +53,7 @@
 .basic-form-input-file {
   width: calc(100% - 10px);
   padding: 8px;
-  font-size: 16px;
+  font-size: 13px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-left: 6px;
@@ -56,7 +64,7 @@
 .basic-form-input-file {
  
   padding: 2px;
-  font-size: 14px;
+  font-size: 13px;
   border: none;
 }
 
@@ -67,7 +75,7 @@
   cursor: pointer;
   padding: 10px 20px;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px;
   margin-top: 20px;
 }
 
@@ -81,5 +89,5 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding-top: 50px; /* Adjust this value based on the height of your navbar */
+  padding-top: 40px; /* Adjust this value based on the height of your navbar */
 }

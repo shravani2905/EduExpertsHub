@@ -31,7 +31,7 @@ function Signup() {
     <div className="body">
       <h1 className="text-center display-5">Form</h1>
       {err && <p className="text-danger text-center mt-3 fs-3">{err}</p>}
-      <form className="mt-5 loginform" onSubmit={handleSubmit(onSignUpFormSubmit)}>
+      <form className=" signupform" onSubmit={handleSubmit(onSignUpFormSubmit)}>
         <h2 className="signup">Sign up</h2>
         <div>
           <label>

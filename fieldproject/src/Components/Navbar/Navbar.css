@@ -1,21 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poetsen+One&display=swap');
+
 .navbar {
-  background-color:#6897bb;
+  background-color: #6897bb;
   position: fixed;
   z-index: 2;
-  top:0;
-  align-items: center;
+  top: 0;
+  display: flex; /* Add flex display */
+  align-items: center; /* Center items vertically */
+  padding: 10px 20px; /* Add padding for spacing */
   width: 100%;
-  margin-bottom: 150px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a box shadow for better visibility */
 }
+
 .List {
   display: flex;
   gap: 50px;
   list-style-type: none;
+  margin-left: auto; /* Push the list to the right */
 }
+
 .List a {
   text-decoration: none;
 }
+
 input {
   width: 350px;
   height: 38px;
@@ -27,9 +34,10 @@ input {
 
 .navbar img {
   border-radius: 50%;
-  margin-left: 20px;
+  margin-right: 10px; /* Adjust the margin between logo and heading */
   margin-bottom: 5px;
 }
+
 .button {
   text-transform: uppercase;
   margin-right: 10px;
@@ -37,24 +45,24 @@ input {
   font-weight: bold;
   border: none;
 }
+
 .heading {
-    font-family: "Poetsen One", sans-serif;
-    font-weight: 400;
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 400;
   font-style: normal;
   font-size: 2rem;
-  margin-left: 20px;
+  margin-left: 0; /* Remove left margin */
   color: rgb(133, 248, 38);
   text-shadow: 2px 2px 2px rgb(228, 38, 187);
 }
+
 @media screen and (max-width: 1000px) {
   .navbar {
     background-color: rgb(139, 139, 255);
-    position: fixed;
-    z-index: 2;
-    align-items: center;
-    width: 100%;
     font-size: 0.8rem;
+    padding: 10px; /* Ensure padding is consistent */
   }
+
   .search-button {
     background-color: rgb(13, 196, 0);
     width: 80px;
@@ -63,11 +71,11 @@ input {
     border: 0.5px solid black;
     color: rgb(255, 255, 255);
   }
+
   .List {
-    display: flex;
     gap: 0px;
-    list-style-type: none;
   }
+
   input {
     border-radius: 50px;
     width: 200px;
@@ -76,10 +84,12 @@ input {
     font-size: 0.6rem;
     margin-left: 100px;
   }
+
   .navbar img {
     border-radius: 30px;
     margin-left: 10px;
   }
+
   .btn {
     text-transform: uppercase;
     color: white;
@@ -87,6 +97,7 @@ input {
     border: none;
     font-size: 0.7rem;
   }
+
   .heading {
     font-family: "Whisper", cursive;
     font-size: 1.5rem;
@@ -95,6 +106,7 @@ input {
     margin-right: 100px;
   }
 }
+
 @media screen and (max-width: 750px) {
   .btn {
     margin-left: 30px;
