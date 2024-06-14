@@ -22,7 +22,8 @@ const AchievementsForm = () => {
     data.professionalAchievements.forEach((item, index) => {
       if (item.file && item.file[0]) {
         console.log(`Achievement: ${item.text}`);
-        formData.append('professionalAchievements', item.file[0]);
+        formData.append(`professionalAchievements[${index}].text`, item.text);
+        formData.append(`professionalAchievements[${index}].file`, item.file[0]);
         console.log(`Uploaded File: ${item.file[0].name}`);
       }
     });
@@ -31,7 +32,8 @@ const AchievementsForm = () => {
     data.personalAchievements.forEach((item, index) => {
       if (item.file && item.file[0]) {
         console.log(`Achievement: ${item.text}`);
-        formData.append('personalAchievements', item.file[0]);
+        formData.append(`personalAchievements[${index}].text`, item.text);
+        formData.append(`personalAchievements[${index}].file`, item.file[0]);
         console.log(`Uploaded File: ${item.file[0].name}`);
       }
     });

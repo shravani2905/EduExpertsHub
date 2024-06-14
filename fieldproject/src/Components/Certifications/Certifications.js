@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import axios from 'axios';
 import './Certifications.css';
+
+import { useSelector } from 'react-redux';
 
 const Certifications = () => {
   const { register, handleSubmit, control, formState: { errors } } = useForm();
@@ -9,30 +12,45 @@ const Certifications = () => {
 
   const [ccaFileNames, setCcaFileNames] = useState({});
   const [ecaFileNames, setEcaFileNames] = useState({});
+  const [serverMessage, setServerMessage] = useState("");
+  const { currentUser } = useSelector(
+    (state) => state.userAdminLoginReducer
+  );
+  const token = localStorage.getItem('token');
+  const axiosWithToken = axios.create({
+    headers: { Authorization: `Bearer ${token}` }
+  });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const formData = new FormData();
 
-    console.log('CCA Certifications:');
-    data.ccaCertifications.forEach((item, index) => {
-      if (item.file && item.file[0]) {
-        console.log(`File Name: ${item.text}`);
-        formData.append('ccaCertifications', item.file[0]);
-        console.log('Uploaded File:', item.file[0]);
-      }
-    });
+    if (data.ccaCertifications) {
+      data.ccaCertifications.forEach((item, index) => {
+        if (item.file && item.file[0]) {
+          formData.append(`ccaCertifications[${index}][text]`, item.text);
+          formData.append(`ccaCertifications[${index}][file]`, item.file[0]);
+        }
+      });
+    }
 
-    console.log('ECA Certifications:');
-    data.ecaCertifications.forEach((item, index) => {
-      if (item.file && item.file[0]) {
-        console.log(`File Name: ${item.text}`);
-        formData.append('ecaCertifications', item.file[0]);
-        console.log('Uploaded File:', item.file[0]);
-      }
-    });
+    if (data.ecaCertifications) {
+      data.ecaCertifications.forEach((item, index) => {
+        if (item.file && item.file[0]) {
+          formData.append(`ecaCertifications[${index}][text]`, item.text);
+          formData.append(`ecaCertifications[${index}][file]`, item.file[0]);
+        }
+      });
+    }
+    
+    formData.append('facultyId', currentUser.facultyId);
+    formData.append('dateOfModification', new Date());
 
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value);
+    try {
+      const res = await axiosWithToken.put('http://localhost:4000/user-api/data', formData);
+      setServerMessage(res.data.message || "Form submitted successfully!");
+    } catch (error) {
+      setServerMessage("An error occurred while submitting the form");
+      console.error("Error submitting form:", error);
     }
   };
 
@@ -45,84 +63,92 @@ const Certifications = () => {
 
   return (
     <div className="certifications-form-container-custom">
-      
       <form className="certificationsform" onSubmit={handleSubmit(onSubmit)}>
-      <h4 className="hd text-center">Faculty Certifications Form</h4>
-        <div className="form-group-custom">
-          <div className="file-input-group-custom">
-            <div className="label-container">
-              <label className="label-custom">Upload CCA Certifications:</label>
-              <button
-                type="button"
-                className="certificationsform-button-custom"
-                onClick={() => appendCca({ text: "", file: "" })}
-              >
-                {ccaFields.length === 0 ? 'Upload file' : 'Add new file'}
-              </button>
-            </div>
-          </div>
+        <h4 className="hd text-center">Faculty Certifications Form</h4>
+        {serverMessage && <p className="server-message">{serverMessage}</p>}
 
+        <div className="form-group-custom">
+          <label className="label-custom">Upload CCA Certifications:</label>
+          <button
+            type="button"
+            className="certificationsform-button-custom"
+            onClick={() => appendCca({ text: "", file: "" })}
+          >
+            {ccaFields.length === 0 ? 'Upload file' : 'Add new file'}
+          </button>
           {ccaFields.map((field, index) => (
             <div key={field.id} className="file-input-group-custom">
               <input
                 type="text"
                 className="certificationsform-input-custom"
                 placeholder="Enter text"
-                {...register(`ccaCertifications.${index}.text`, { required: true })}
+                {...register(`ccaCertifications.${index}.text`, { required: "Text is required" })}
               />
-              <input
-                type="file"
-                className="certificationsform-input-custom"
-                {...register(`ccaCertifications.${index}.file`, { required: true })}
-                onChange={(e) => handleFileChange(e, setCcaFileNames, index)}
+              <Controller
+                control={control}
+                name={`ccaCertifications.${index}.file`}
+                render={({ field }) => (
+                  <input
+                    type="file"
+                    className="certificationsform-input-custom"
+                    onChange={(e) => {
+                      field.onChange(e.target.files);
+                      handleFileChange(e, setCcaFileNames, index);
+                    }}
+                  />
+                )}
               />
               {ccaFileNames[index] && (
                 <span className="file-name-custom">{ccaFileNames[index]}</span>
               )}
               {errors.ccaCertifications && errors.ccaCertifications[index] && (
-                <span className="error-custom">This field is required</span>
+                <span className="error-custom">{errors.ccaCertifications[index].text?.message || errors.ccaCertifications[index].file?.message}</span>
               )}
             </div>
           ))}
         </div>
 
         <div className="form-group-custom">
-          <div className="file-input-group-custom">
-            <div className="label-container">
-              <label className="label-custom">Upload ECA Certifications:</label>
-              <button
-                type="button"
-                className="certificationsform-button-custom"
-                onClick={() => appendEca({ text: "", file: "" })}
-              >
-                {ecaFields.length === 0 ? 'Upload file' : 'Add new file'}
-              </button>
-            </div>
-          </div>
-
+          <label className="label-custom">Upload ECA Certifications:</label>
+          <button
+            type="button"
+            className="certificationsform-button-custom"
+            onClick={() => appendEca({ text: "", file: "" })}
+          >
+            {ecaFields.length === 0 ? 'Upload file' : 'Add new file'}
+          </button>
           {ecaFields.map((field, index) => (
             <div key={field.id} className="file-input-group-custom">
               <input
                 type="text"
                 className="certificationsform-input-custom"
                 placeholder="Enter text"
-                {...register(`ecaCertifications.${index}.text`, { required: true })}
+                {...register(`ecaCertifications.${index}.text`, { required: "Text is required" })}
               />
-              <input
-                type="file"
-                className="certificationsform-input-custom"
-                {...register(`ecaCertifications.${index}.file`, { required: true })}
-                onChange={(e) => handleFileChange(e, setEcaFileNames, index)}
+              <Controller
+                control={control}
+                name={`ecaCertifications.${index}.file`}
+                render={({ field }) => (
+                  <input
+                    type="file"
+                    className="certificationsform-input-custom"
+                    onChange={(e) => {
+                      field.onChange(e.target.files);
+                      handleFileChange(e, setEcaFileNames, index);
+                    }}
+                  />
+                )}
               />
               {ecaFileNames[index] && (
                 <span className="file-name-custom">{ecaFileNames[index]}</span>
               )}
               {errors.ecaCertifications && errors.ecaCertifications[index] && (
-                <span className="error-custom">This field is required</span>
+                <span className="error-custom">{errors.ecaCertifications[index].text?.message || errors.ecaCertifications[index].file?.message}</span>
               )}
             </div>
           ))}
         </div>
+
         <button type="submit" className="certificationsform-button-submit-custom">Submit</button>
       </form>
     </div>

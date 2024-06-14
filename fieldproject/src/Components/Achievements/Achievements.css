@@ -2,7 +2,7 @@
   background-color: #d4eaf5;
   display: block;
   margin: 170px auto;
-  width: 500px;
+  width: 600px;
   padding: 30px;
   border-radius: 10px;
   text-align: center;
@@ -10,6 +10,7 @@
 }
 
 .achievements-form-container-custom {
+  text-align: center;
   margin-top: 70px;
 }
 
@@ -85,6 +86,8 @@
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  text-align: center;
+  
 }
 
 .file-name-custom {

@@ -1,46 +1,40 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 import './Designation.css';
 
 const DesignationForm = () => {
-  const [position, setPosition] = useState('');
-  const [joiningDate, setJoiningDate] = useState('');
-  const [department, setDepartment] = useState('');
-  const [errors, setErrors] = useState({});
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [serverMessage, setServerMessage] = useState("");
+  const { currentUser } = useSelector(
+    (state) => state.userAdminLoginReducer
+  );
+  const token = localStorage.getItem('token');
 
-  const handlePositionChange = (event) => {
-    setPosition(event.target.value);
-    if (event.target.value) {
-      setErrors((prevErrors) => ({ ...prevErrors, position: '' }));
-    }
-  };
+  // Create axios instance with token
+  const axiosWithToken = axios.create({
+    headers: { Authorization: `Bearer ${token}` }
+  });
 
-  const handleDateChange = (event) => {
-    setJoiningDate(event.target.value);
-    if (event.target.value) {
-      setErrors((prevErrors) => ({ ...prevErrors, joiningDate: '' }));
-    }
-  };
+  const onSubmit = async (data) => {
+    data.facultyId = currentUser.facultyId;
+    data.dateOfModification = new Date();
+    console.log('Payload:', data);  // Log the payload
 
-  const handleDepartmentChange = (event) => {
-    setDepartment(event.target.value);
-    if (event.target.value) {
-      setErrors((prevErrors) => ({ ...prevErrors, department: '' }));
-    }
-  };
+    try {
+      // Make HTTP PUT request
+      const res = await axiosWithToken.put('http://localhost:4000/user-api/data', data);
+      console.log('Response:', res.data);  // Log the response
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!position) newErrors.position = 'Current Position is required';
-    if (!joiningDate) newErrors.joiningDate = 'Joining Date is required';
-    if (!department) newErrors.department = 'Department is required';
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      alert('Form submitted successfully!');
+      if (res.data.message === "Data added" || res.data.message === "Data modified") {
+        setServerMessage("Successfully submitted the form");
+      } else {
+        setServerMessage(res.data.message);
+      }
+    } catch (error) {
+      setServerMessage("An error occurred while submitting the form");
+      console.error("Error submitting form:", error);
     }
   };
 
@@ -48,13 +42,13 @@ const DesignationForm = () => {
     <div className="designation-form-container">
       <div className="designation-form">
         <h1 className="designation-form-heading">Designation</h1>
-        <form onSubmit={handleSubmit}>
+        {serverMessage && <p className="error-message">{serverMessage}</p>}
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="designation-form-row">
             <label htmlFor="position" className="designation-form-label">Current Position: *</label>
-            <select 
-              id="position" 
-              value={position} 
-              onChange={handlePositionChange} 
+            <select
+              id="position"
+              {...register("position", { required: "Current Position is required" })}
               className={`designation-form-select ${errors.position ? 'error-border' : ''}`}
             >
               <option value="" disabled>Select your position</option>
@@ -64,14 +58,13 @@ const DesignationForm = () => {
               <option value="Associate professor">Associate Professor</option>
               <option value="Professor">Professor</option>
             </select>
-            {errors.position && <span className="error-message">{errors.position}</span>}
+            {errors.position && <span className="error-message">{errors.position.message}</span>}
           </div>
           <div className="designation-form-row">
             <label htmlFor="department" className="designation-form-label">Department: *</label>
-            <select 
-              id="department" 
-              value={department} 
-              onChange={handleDepartmentChange}
+            <select
+              id="department"
+              {...register("department", { required: "Department is required" })}
               className={`designation-form-select ${errors.department ? 'error-border' : ''}`}
             >
               <option value="" disabled>Select your department</option>
@@ -79,18 +72,17 @@ const DesignationForm = () => {
               <option value="ECE">ECE</option>
               <option value="IT">IT</option>
             </select>
-            {errors.department && <span className="error-message">{errors.department}</span>}
+            {errors.department && <span className="error-message">{errors.department.message}</span>}
           </div>
           <div className="designation-form-row">
             <label htmlFor="joiningDate" className="designation-form-label">Joining Date: *</label>
-            <input 
-              type="date" 
-              id="joiningDate" 
-              value={joiningDate} 
-              onChange={handleDateChange}
+            <input
+              type="date"
+              id="joiningDate"
+              {...register("joiningDate", { required: "Joining Date is required" })}
               className={`designation-form-input mx-1 ${errors.joiningDate ? 'error-border' : ''}`}
             />
-            {errors.joiningDate && <span className="error-message">{errors.joiningDate}</span>}
+            {errors.joiningDate && <span className="error-message">{errors.joiningDate.message}</span>}
           </div>
           <button type="submit" className="designation-form-button">Submit</button>
         </form>

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poetsen+One&display=swap');
 
 .navbar {
-  background-color: #6897bb;
+
   position: fixed;
   z-index: 2;
   top: 0;
@@ -9,7 +9,8 @@
   align-items: center; /* Center items vertically */
   padding: 10px 20px; /* Add padding for spacing */
   width: 100%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a box shadow for better visibility */
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* Add a box shadow for better visibility */
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
 }
 
 .List {
@@ -41,7 +42,7 @@ input {
 .button {
   text-transform: uppercase;
   margin-right: 10px;
-  color: white;
+  color: rgb(82, 75, 213);
   font-weight: bold;
   border: none;
 }
@@ -52,8 +53,8 @@ input {
   font-style: normal;
   font-size: 2rem;
   margin-left: 0; /* Remove left margin */
-  color: rgb(133, 248, 38);
-  text-shadow: 2px 2px 2px rgb(228, 38, 187);
+  color: rgb(89, 70, 232);
+  text-shadow: 2px 2px 2px rgb(244, 153, 224);
 }
 
 @media screen and (max-width: 1000px) {
