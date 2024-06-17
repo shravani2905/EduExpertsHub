@@ -4,7 +4,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { ThreeDots } from "react-loader-spinner";
 import './Basic.css';
-
 const Basic = () => {
   const [image, setImage] = useState(null);
   const [aadharProof, setAadharProof] = useState(null);
@@ -21,31 +20,31 @@ const Basic = () => {
     headers: { Authorization: `Bearer ${token}` }
   });
 
-  const uploadFile = async (file, type) => {
+  const uploadFile = async (file) => {
     const data = new FormData();
     data.append("file", file);
-    data.append("upload_preset", type === 'image' ? 'fpimages' : 'fppdfs');
+    data.append("upload_preset", 'fpimages'); // Use 'fpimages' for image uploads
     try {
-      const cloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
-      const resourceType = type === 'image' ? 'image' : 'raw';
-      const api = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`;
+      const cloudName = 'drzr9z0ai';
+      console.log(cloudName)
+      const api = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`; // Use '/image/upload' for image uploads
       const res = await axios.post(api, data);
       const { secure_url } = res.data;
       return secure_url;
     } catch (error) {
-      console.error(`Error uploading ${type}:`, error.response ? error.response.data : error.message);
-      throw new Error(`Failed to upload ${type}`);
+      console.error("Error uploading image:", error.response ? error.response.data : error.message);
+      throw new Error("Failed to upload image");
     }
   };
 
   const onSubmit = async (formData) => {
     try {
       setLoading(true);
-      const imgUrl = image ? await uploadFile(image, 'image') : null;
-      const aadharProofUrl = aadharProof ? await uploadFile(aadharProof, 'pdf') : null;
-      const panProofUrl = panProof ? await uploadFile(panProof, 'pdf') : null;
-      const joiningOrderUrl = joiningOrder ? await uploadFile(joiningOrder, 'pdf') : null;
-      const officeOrderUrl = officeOrder ? await uploadFile(officeOrder, 'pdf') : null;
+      const imgUrl =  await uploadFile(image)
+      const aadharProofUrl = await uploadFile(aadharProof)
+      const panProofUrl = await uploadFile(panProof)
+      const joiningOrderUrl =  await uploadFile(joiningOrder) 
+      const officeOrderUrl =  await uploadFile(officeOrder)
 
       if (!imgUrl || !aadharProofUrl || !panProofUrl || !joiningOrderUrl || !officeOrderUrl) {
         setErr("File upload failed");
@@ -167,7 +166,7 @@ const Basic = () => {
                   type="file"
                   id="aadharProof"
                   name="aadharProof"
-                  accept="application/pdf"
+                  accept="image/*"
                   onChange={(e) => setAadharProof(e.target.files[0])}
                   required
                   className="basic-form-input-file"
@@ -181,7 +180,7 @@ const Basic = () => {
                   type="file"
                   id="panProof"
                   name="panProof"
-                  accept="application/pdf"
+                  accept="image/*"
                   onChange={(e) => setPanProof(e.target.files[0])}
                   required
                   className="basic-form-input-file"
@@ -195,7 +194,7 @@ const Basic = () => {
                   type="file"
                   id="joiningOrder"
                   name="joiningOrder"
-                  accept="application/pdf"
+                  accept="image/*"
                   onChange={(e) => setJoiningOrder(e.target.files[0])}
                   required
                   className="basic-form-input-file"
@@ -209,7 +208,7 @@ const Basic = () => {
                   type="file"
                   id="officeOrder"
                   name="officeOrder"
-                  accept="application/pdf"
+                  accept="image/*"
                   onChange={(e) => setOfficeOrder(e.target.files[0])}
                   required
                   className="basic-form-input-file"
