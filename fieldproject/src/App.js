@@ -5,7 +5,6 @@ import Home from "./Components/Home/Home";
 import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
 import Userdashboard from "./Components/Userdashboard/Userdashboard";
-import Explore from "./Components/Explore/Explore";
 import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 import Achievements from "./Components/Achievements/Achievements";
 import Basic from "./Components/Basic/Basic";
@@ -31,10 +30,6 @@ function App() {
         {
           path: "home",
           element: <Home />,
-        },
-        {
-          path: "explore",
-          element: <Explore />,
         },
         {
           path: "signup",

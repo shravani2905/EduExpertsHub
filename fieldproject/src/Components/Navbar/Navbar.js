@@ -16,11 +16,11 @@ function Navbar() {
   return (
     <div className="navbar">
       <img
-        src="https://w7.pngwing.com/pngs/182/390/png-transparent-faculty-staff-icon-text-orange-logo.png"
-        width="50px"
+        src="https://www.careerguide.com/career/wp-content/uploads/2023/09/VNR-VJIET.png"
+        width="170px"
+        height="70px"
         alt="Logo"
       />
-      <h3 className="heading mx-2">Edu Experts Hub</h3>
       <ul className="List">
         {loginUserStatus === false ? (
           <>
@@ -28,12 +28,6 @@ function Navbar() {
               <NavLink className="nav-link" to="/" style={{ color: "white" }}>
               <button className="btn nav button">HOME</button>
               </NavLink>
-            </li>
-           
-            <li>
-              <Link to="/explore">
-                <button className="btn nav button">EXPLORE</button>
-              </Link>
             </li>
             <li>
               <Link to="/signup">
@@ -54,16 +48,7 @@ function Navbar() {
                    <sup style={{ color:"#F6EEC9",fontSize:'1rem'}}>({currentUser.userType})</sup>
                    </span>
             </li>
-            <li className="nav-item">
-            <NavLink
-                className="nav-link"
-                to="/user-dashboard"
-                style={{ color: "white" }}
-                
-              >
-                <button className="btn nav button">Dashboard</button>
-              </NavLink>
-            </li>
+            
             <li className="nav-item">
             <NavLink
                 className="nav-link"

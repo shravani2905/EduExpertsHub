@@ -4,7 +4,8 @@
 }
 
 .loginform{
-  background-color: #ffffff;
+  
+  background-color: rgba(255, 255, 255,0.7);
   color: rgb(0, 0, 0);
   padding: 10px;
   border-radius: 10px;
@@ -31,16 +32,16 @@ p {
 
 .text {
   margin-bottom: 0;
-  color: rgb(131, 131, 131); /* Remove default bottom margin on the text */
+  color: rgb(0, 0, 0); /* Remove default bottom margin on the text */
 }
 .signup {
-  color: rgb(217, 78, 208);
+  color: rgb(47, 47, 47);
   font-weight: bold;
   text-shadow: 2px 2px 2px rgb(184, 184, 184);
   text-align: center;
 }
 p a {
-  color: rgb(116, 116, 116);
+  color: rgb(0, 0, 0);
 }
 .body {
   line-height: 40px;
@@ -60,10 +61,10 @@ p a {
   margin-left: 70px;
 }
 .submit {
-  background-color:white;
-  border-radius: 30px;
-  width: 300px;
-  color: rgb(36, 36, 36);
+  background-color: #7b241c;;
+  border-radius: 10px;
+  width: 120px;
+  color: rgb(255, 255, 255);
   align-items: center;
 }
 /* Media Query for Medium Screens (between 577px and 768px) */
