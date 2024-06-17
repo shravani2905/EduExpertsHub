@@ -1,40 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import './Basic.css';
 import axios from "axios";
-import { useState } from "react";
 import { useSelector } from "react-redux";
+import { ThreeDots } from "react-loader-spinner";
+import './Basic.css';
 
 const Basic = () => {
-  const { register, handleSubmit } = useForm();
+  const [image, setImage] = useState(null);
+  const [aadharProof, setAadharProof] = useState(null);
+  const [panProof, setPanProof] = useState(null);
+  const [joiningOrder, setJoiningOrder] = useState(null);
+  const [officeOrder, setOfficeOrder] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { register, handleSubmit, reset } = useForm();
   const [err, setErr] = useState("");
-  const { currentUser } = useSelector(
-    (state) => state.userAdminLoginReducer
-  );
+  const { currentUser } = useSelector((state) => state.userAdminLoginReducer);
   const token = localStorage.getItem('token');
 
-  // Create axios instance with token
   const axiosWithToken = axios.create({
     headers: { Authorization: `Bearer ${token}` }
   });
 
-  const onSubmit = async (data) => {
-    data.facultyId = currentUser.facultyId;
-    data.dateOfModification = new Date();
-
+  const uploadFile = async (file, type) => {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", type === 'image' ? 'fpimages' : 'fppdfs');
     try {
-      // Make HTTP PUT request
-      const res = await axiosWithToken.put('http://localhost:4000/user-api/data', data);
+      const cloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
+      const resourceType = type === 'image' ? 'image' : 'raw';
+      const api = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`;
+      const res = await axios.post(api, data);
+      const { secure_url } = res.data;
+      return secure_url;
+    } catch (error) {
+      console.error(`Error uploading ${type}:`, error.response ? error.response.data : error.message);
+      throw new Error(`Failed to upload ${type}`);
+    }
+  };
+
+  const onSubmit = async (formData) => {
+    try {
+      setLoading(true);
+      const imgUrl = image ? await uploadFile(image, 'image') : null;
+      const aadharProofUrl = aadharProof ? await uploadFile(aadharProof, 'pdf') : null;
+      const panProofUrl = panProof ? await uploadFile(panProof, 'pdf') : null;
+      const joiningOrderUrl = joiningOrder ? await uploadFile(joiningOrder, 'pdf') : null;
+      const officeOrderUrl = officeOrder ? await uploadFile(officeOrder, 'pdf') : null;
+
+      if (!imgUrl || !aadharProofUrl || !panProofUrl || !joiningOrderUrl || !officeOrderUrl) {
+        setErr("File upload failed");
+        setLoading(false);
+        return;
+      }
+
+      const dataToSubmit = {
+        ...formData,
+        imgUrl,
+        aadharProofUrl,
+        panProofUrl,
+        joiningOrderUrl,
+        officeOrderUrl,
+        facultyId: currentUser.facultyId,
+        dateOfModification: new Date()
+      };
+
+      const res = await axiosWithToken.put(`http://localhost:4000/user-api/data`, dataToSubmit);
 
       if (res.data.message === "Data added" || res.data.message === "Data modified") {
         setErr("Successfully submitted the form");
-      
       } else {
         setErr(res.data.message);
       }
+      setLoading(false);
+      reset();
     } catch (error) {
       setErr("An error occurred while submitting the form");
       console.error("Error submitting form:", error);
+      setLoading(false);
     }
   };
 
@@ -104,7 +146,7 @@ const Basic = () => {
             </div>
             <div className="basic-form-column">
               <div className="basic-form-group">
-                <label htmlFor="Image">
+                <label htmlFor="uploadImage">
                   Upload Photo: <span className="basic-form-required">*</span>
                 </label>
                 <input
@@ -112,8 +154,8 @@ const Basic = () => {
                   id="uploadImage"
                   name="uploadImage"
                   accept="image/*"
+                  onChange={(e) => setImage(e.target.files[0])}
                   required
-                  {...register('uploadImage')}
                   className="basic-form-input-file"
                 />
               </div>
@@ -125,9 +167,9 @@ const Basic = () => {
                   type="file"
                   id="aadharProof"
                   name="aadharProof"
-                  accept="image/*,application/pdf"
+                  accept="application/pdf"
+                  onChange={(e) => setAadharProof(e.target.files[0])}
                   required
-                  {...register('aadharProof')}
                   className="basic-form-input-file"
                 />
               </div>
@@ -139,13 +181,12 @@ const Basic = () => {
                   type="file"
                   id="panProof"
                   name="panProof"
-                  accept="image/*,application/pdf"
+                  accept="application/pdf"
+                  onChange={(e) => setPanProof(e.target.files[0])}
                   required
-                  {...register('panProof')}
                   className="basic-form-input-file"
                 />
               </div>
-              
               <div className="basic-form-group">
                 <label htmlFor="joiningOrder">
                   Joining Order: <span className="basic-form-required">*</span>
@@ -154,9 +195,9 @@ const Basic = () => {
                   type="file"
                   id="joiningOrder"
                   name="joiningOrder"
-                  accept="image/*,application/pdf"
+                  accept="application/pdf"
+                  onChange={(e) => setJoiningOrder(e.target.files[0])}
                   required
-                  {...register('joiningOrder')}
                   className="basic-form-input-file"
                 />
               </div>
@@ -168,9 +209,9 @@ const Basic = () => {
                   type="file"
                   id="officeOrder"
                   name="officeOrder"
-                  accept="image/*,application/pdf"
+                  accept="application/pdf"
+                  onChange={(e) => setOfficeOrder(e.target.files[0])}
                   required
-                  {...register('officeOrder')}
                   className="basic-form-input-file"
                 />
               </div>
@@ -180,6 +221,18 @@ const Basic = () => {
             Submit
           </button>
         </form>
+        {loading && (
+          <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="#4fa94d"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible={true}
+          />
+        )}
       </div>
     </div>
   );

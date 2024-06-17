@@ -4,7 +4,6 @@ const app=exp()
 require('dotenv').config() //process.env.PORT
 const mongoClient=require('mongodb').MongoClient;
 const path=require('path')
-
 //deploy react build in this server
 app.use(exp.static(path.join(__dirname,'../fieldproject/build')))
 //to parse the body of req
@@ -28,11 +27,9 @@ mongoClient.connect(process.env.DB_URL)
 })
 .catch(err=>console.log("Err in DB connection",err))
 
-
 //import API routes
 const userApp=require('./APIs/user-api')
 const adminApp=require('./APIs/admin-api')
-
 //if path starts with user-api, send req to userApp
 app.use('/user-api',userApp)
 //if path starts with admin-api, send req adminApp

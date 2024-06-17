@@ -1,63 +1,37 @@
 import React, { useState } from 'react';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import axios from 'axios';
-import './Certifications.css';
-
 import { useSelector } from 'react-redux';
+import './Certifications.css';
 
 const Certifications = () => {
   const { register, handleSubmit, control, formState: { errors } } = useForm();
   const { fields: ccaFields, append: appendCca } = useFieldArray({ control, name: "ccaCertifications" });
   const { fields: ecaFields, append: appendEca } = useFieldArray({ control, name: "ecaCertifications" });
-
-  const [ccaFileNames, setCcaFileNames] = useState({});
-  const [ecaFileNames, setEcaFileNames] = useState({});
+  
   const [serverMessage, setServerMessage] = useState("");
-  const { currentUser } = useSelector(
-    (state) => state.userAdminLoginReducer
-  );
+  const { currentUser } = useSelector((state) => state.userAdminLoginReducer);
   const token = localStorage.getItem('token');
+  
   const axiosWithToken = axios.create({
     headers: { Authorization: `Bearer ${token}` }
   });
 
   const onSubmit = async (data) => {
-    const formData = new FormData();
-
-    if (data.ccaCertifications) {
-      data.ccaCertifications.forEach((item, index) => {
-        if (item.file && item.file[0]) {
-          formData.append(`ccaCertifications[${index}][text]`, item.text);
-          formData.append(`ccaCertifications[${index}][file]`, item.file[0]);
-        }
-      });
-    }
-
-    if (data.ecaCertifications) {
-      data.ecaCertifications.forEach((item, index) => {
-        if (item.file && item.file[0]) {
-          formData.append(`ecaCertifications[${index}][text]`, item.text);
-          formData.append(`ecaCertifications[${index}][file]`, item.file[0]);
-        }
-      });
-    }
-    
-    formData.append('facultyId', currentUser.facultyId);
-    formData.append('dateOfModification', new Date());
+    data.facultyId = currentUser.facultyId;
+    data.dateOfModification = new Date();
 
     try {
-      const res = await axiosWithToken.put('http://localhost:4000/user-api/data', formData);
-      setServerMessage(res.data.message || "Form submitted successfully!");
+      const res = await axiosWithToken.put('http://localhost:4000/user-api/data', data);
+      if (res.data.message === "Data added" || res.data.message === "Data modified") {
+        setServerMessage("Successfully submitted the form");
+      
+      } else {
+        setServerMessage(res.data.message);
+      }
     } catch (error) {
       setServerMessage("An error occurred while submitting the form");
       console.error("Error submitting form:", error);
-    }
-  };
-
-  const handleFileChange = (event, setFileNames, index) => {
-    const file = event.target.files[0];
-    if (file) {
-      setFileNames(prev => ({ ...prev, [index]: file.name }));
     }
   };
 
@@ -91,16 +65,10 @@ const Certifications = () => {
                   <input
                     type="file"
                     className="certificationsform-input-custom"
-                    onChange={(e) => {
-                      field.onChange(e.target.files);
-                      handleFileChange(e, setCcaFileNames, index);
-                    }}
+                    {...field}
                   />
                 )}
               />
-              {ccaFileNames[index] && (
-                <span className="file-name-custom">{ccaFileNames[index]}</span>
-              )}
               {errors.ccaCertifications && errors.ccaCertifications[index] && (
                 <span className="error-custom">{errors.ccaCertifications[index].text?.message || errors.ccaCertifications[index].file?.message}</span>
               )}
@@ -132,16 +100,10 @@ const Certifications = () => {
                   <input
                     type="file"
                     className="certificationsform-input-custom"
-                    onChange={(e) => {
-                      field.onChange(e.target.files);
-                      handleFileChange(e, setEcaFileNames, index);
-                    }}
+                    {...field}
                   />
                 )}
               />
-              {ecaFileNames[index] && (
-                <span className="file-name-custom">{ecaFileNames[index]}</span>
-              )}
               {errors.ecaCertifications && errors.ecaCertifications[index] && (
                 <span className="error-custom">{errors.ecaCertifications[index].text?.message || errors.ecaCertifications[index].file?.message}</span>
               )}

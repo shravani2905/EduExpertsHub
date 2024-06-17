@@ -1,21 +1,25 @@
-//mini application for User API
 const exp = require('express');
 const userApp = exp.Router();
 const bcryptjs = require('bcryptjs');
-userApp.use(exp.json());
-const expressAsyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
+const expressAsyncHandler = require('express-async-handler');
+const verifyToken = require('../Middlewares/verfiyToken');
 require('dotenv').config();
-const verifyToken=require('../Middlewares/verfiyToken')
+
+userApp.use(exp.json());
+
 let userscollection;
 let articlescollection;
+let userinfo;
+
 userApp.use((req, res, next) => {
     userscollection = req.app.get('userscollection');
     articlescollection = req.app.get('articlescollection');
-    userinfo=req.app.get('userinfo');
+    userinfo = req.app.get('userinfo');
     next();
 });
-//User registration
+
+// User registration
 userApp.post('/user', expressAsyncHandler(async (req, res) => {
     const newUser = req.body;
     const dbuser = await userscollection.findOne({ facultyId: newUser.facultyId });
@@ -28,7 +32,8 @@ userApp.post('/user', expressAsyncHandler(async (req, res) => {
         res.send({ message: "User created" });
     }
 }));
-//User Login
+
+// User login
 userApp.post('/login', expressAsyncHandler(async (req, res) => {
     const userCred = req.body;
     const dbUser = await userscollection.findOne({ facultyId: userCred.facultyId });
@@ -44,20 +49,18 @@ userApp.post('/login', expressAsyncHandler(async (req, res) => {
         }
     }
 }));
+
+// Update user data
 userApp.put('/data', verifyToken, expressAsyncHandler(async (req, res) => {
     try {
-        // Extract modified data from the request body
         const modifiedData = req.body;
         const { facultyId, dateOfModification, ...restOfData } = modifiedData;
 
-        // Check if data with the specified facultyId already exists
         let existingData = await userinfo.findOne({ facultyId: facultyId });
 
         if (existingData) {
-            // Prepare update fields
-            let updateFields = { dateOfModification }; // Always update dateOfModification
+            let updateFields = { dateOfModification };
 
-            // Append or update other fields
             for (let key in restOfData) {
                 if (Array.isArray(restOfData[key])) {
                     if (!updateFields[key]) {
@@ -76,12 +79,10 @@ userApp.put('/data', verifyToken, expressAsyncHandler(async (req, res) => {
                 }
             );
 
-            // Fetch the latest updated data
             let latestData = await userinfo.findOne({ facultyId: facultyId });
             res.status(200).send({ message: "Data modified", data: latestData });
         } else {
-            // Insert the new data if it doesn't exist
-            modifiedData.facultyId = facultyId; // Ensure facultyId is set
+            modifiedData.facultyId = facultyId;
             let savedData = await userinfo.insertOne(modifiedData);
             res.status(201).send({ message: "Data added", data: savedData });
         }
@@ -90,6 +91,4 @@ userApp.put('/data', verifyToken, expressAsyncHandler(async (req, res) => {
     }
 }));
 
-
-// Export the userApp router
 module.exports = userApp;
