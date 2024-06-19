@@ -62,16 +62,13 @@ const Basic = () => {
         facultyId: currentUser.facultyId,
         dateOfModification: new Date()
       };
-
       const res = await axiosWithToken.put(`http://localhost:4000/user-api/data`, dataToSubmit);
-
       if (res.data.message === "Data added" || res.data.message === "Data modified") {
         setErr("Successfully submitted the form");
       } else {
         setErr(res.data.message);
       }
       setLoading(false);
-      reset();
     } catch (error) {
       setErr("An error occurred while submitting the form");
       console.error("Error submitting form:", error);

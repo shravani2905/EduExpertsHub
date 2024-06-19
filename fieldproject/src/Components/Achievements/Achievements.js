@@ -1,45 +1,60 @@
 import React, { useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+import axios from 'axios';
 import './Achievements.css';
 
 const AchievementsForm = () => {
   const { register, handleSubmit, control, watch, formState: { errors } } = useForm();
   const { fields: profFields, append: appendProf } = useFieldArray({ control, name: "professionalAchievements" });
-  const { fields: persFields, append: appendPers } = useFieldArray({ control, name: "personalAchievements" });
 
   const [profFileNames, setProfFileNames] = useState({});
-  const [persFileNames, setPersFileNames] = useState({});
   const [profErrors, setProfErrors] = useState({});
-  const [persErrors, setPersErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState('');
 
   const watchProfAchievements = watch("professionalAchievements", []);
-  const watchPersAchievements = watch("personalAchievements", []);
 
-  const onSubmit = (data) => {
-    const formData = new FormData();
+  const uploadFile = async (file) => {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", 'fpimages'); // Use 'fpimages' for image uploads
+    try {
+      const cloudName = 'drzr9z0ai';
+      const api = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`; // Use '/image/upload' for image uploads
+      const res = await axios.post(api, data);
+      const { secure_url } = res.data;
+      return secure_url;
+    } catch (error) {
+      console.error("Error uploading image:", error.response ? error.response.data : error.message);
+      throw new Error("Failed to upload image");
+    }
+  };
 
-    console.log('Professional Achievements:');
-    data.professionalAchievements.forEach((item, index) => {
-      if (item.file && item.file[0]) {
-        console.log(`Achievement: ${item.text}`);
-        formData.append(`professionalAchievements[${index}].text`, item.text);
-        formData.append(`professionalAchievements[${index}].file`, item.file[0]);
-        console.log(`Uploaded File: ${item.file[0].name}`);
-      }
-    });
+  const onSubmit = async (data) => {
+    try {
+      setLoading(true);
+      const profUrls = await Promise.all(data.professionalAchievements.map(async (item, index) => {
+        if (item.file && item.file[0]) {
+          const url = await uploadFile(item.file[0]);
+          return { text: item.text, url };
+        }
+        return null;
+      }));
 
-    console.log('Personal Achievements:');
-    data.personalAchievements.forEach((item, index) => {
-      if (item.file && item.file[0]) {
-        console.log(`Achievement: ${item.text}`);
-        formData.append(`personalAchievements[${index}].text`, item.text);
-        formData.append(`personalAchievements[${index}].file`, item.file[0]);
-        console.log(`Uploaded File: ${item.file[0].name}`);
-      }
-    });
+      const dataToSubmit = {
+        professionalAchievements: profUrls.filter(item => item !== null),
+      };
 
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value);
+      // Now, send `dataToSubmit` to your backend API
+      // Example: await axios.post('http://localhost:4000/your-api-endpoint', dataToSubmit);
+
+      console.log(dataToSubmit);
+      setLoading(false);
+      setErr('');
+    } catch (error) {
+      setErr("An error occurred while submitting the form");
+      console.error("Error submitting form:", error);
+      setLoading(false);
     }
   };
 
@@ -107,47 +122,8 @@ const AchievementsForm = () => {
           ))}
         </div>
 
-        <div className="form-group-custom">
-          <div className="file-input-group-custom">
-            <div className="label-container">
-              <label className="label-custom">Upload Personal Achievements:</label>
-              <button
-                type="button"
-                className="achievementsform-button-custom mx-4"
-                onClick={() => handleAddField(appendPers, watchPersAchievements, setPersErrors, persErrors)}
-                disabled={persFields.length > 0 && !watchPersAchievements[persFields.length - 1]?.text}
-              >
-                {persFields.length === 0 ? 'Upload file' : 'Add new file'}
-              </button>
-            </div>
-          </div>
-
-          {persFields.map((field, index) => (
-            <div key={field.id} className="file-input-group-custom">
-              <input
-                type="text"
-                className="achievementsform-input-custom"
-                placeholder="Enter achievement"
-                {...register(`personalAchievements.${index}.text`, { required: true })}
-              />
-              <input
-                type="file"
-                className="achievementsform-input-custom"
-                {...register(`personalAchievements.${index}.file`, { required: true })}
-                onChange={(e) => handleFileChange(e, setPersFileNames, index)}
-              />
-              {persFileNames[index] && (
-                <span className="file-name-custom">{persFileNames[index]}</span>
-              )}
-              {errors.personalAchievements && errors.personalAchievements[index] && (
-                <span className="error-custom">This field is required</span>
-              )}
-              {persErrors[index] && (
-                <span className="error-custom">This field should be filled before adding a new file</span>
-              )}
-            </div>
-          ))}
-        </div>
+        {loading && <p>Uploading...</p>}
+        {err && <p className="error-custom">{err}</p>}
 
         <button type="submit" className="achievementsform-button-submit-custom">Submit</button>
       </form>

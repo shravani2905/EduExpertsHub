@@ -3,10 +3,12 @@ import { useForm, Controller, watch } from 'react-hook-form';
 import axios from 'axios';
 import './Promotions.css';
 import { useSelector } from 'react-redux';
+import { ThreeDots } from 'react-loader-spinner';
 
 const PromotionsForm = () => {
   const { register, handleSubmit, control, formState: { errors }, watch } = useForm();
   const [serverMessage, setServerMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector(
     (state) => state.userAdminLoginReducer
   );
@@ -21,8 +23,24 @@ const PromotionsForm = () => {
     console.log('Payload:', data);  // Log the payload
 
     try {
-      // Make HTTP PUT request
-      const res = await axiosWithToken.put('http://localhost:4000/user-api/data', data);
+      setLoading(true);
+      const officeOrderUrl = await uploadFile(data.officeOrder[0]);
+      const joiningReportUrl = await uploadFile(data.joiningReport[0]);
+
+      if (!officeOrderUrl || !joiningReportUrl) {
+        setServerMessage("File upload failed");
+        setLoading(false);
+        return;
+      }
+
+      const formData = {
+        ...data,
+        officeOrderUrl,
+        joiningReportUrl
+      };
+
+      // Make HTTP PUT request with updated formData
+      const res = await axiosWithToken.put('http://localhost:4000/user-api/data', formData);
       console.log('Response:', res.data);  // Log the response
 
       if (res.data.message === "Data added" || res.data.message === "Data modified") {
@@ -33,9 +51,27 @@ const PromotionsForm = () => {
     } catch (error) {
       setServerMessage("An error occurred while submitting the form");
       console.error("Error submitting form:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
+  const uploadFile = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'fpimages'); // Use 'fpimages' for image uploads
+
+      const cloudName = 'drzr9z0ai'; // Replace with your Cloudinary cloud name
+      const api = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`; // Use '/image/upload' for image uploads
+      const res = await axios.post(api, formData);
+      const { secure_url } = res.data;
+      return secure_url;
+    } catch (error) {
+      console.error("Error uploading file:", error.response ? error.response.data : error.message);
+      throw new Error("Failed to upload file");
+    }
+  };
 
   const selectedPosition = watch("position");
 
@@ -129,6 +165,19 @@ const PromotionsForm = () => {
         </div>
 
         <button type="submit" className="promotions-form-button">Submit</button>
+
+        {loading && (
+          <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="#4fa94d"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClassName=""
+            visible={true}
+          />
+        )}
       </form>
     </div>
   );

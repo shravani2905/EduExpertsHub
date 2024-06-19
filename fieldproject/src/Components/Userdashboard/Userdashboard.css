@@ -10,6 +10,7 @@
   flex-grow: 1;
   font-size: 1.3rem;
   height: auto;
+  background-color: white;
 }
 
 /* Sidebar styling */
@@ -24,7 +25,8 @@
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  background-color: #e0e0e0ea;
+  background-color:#7F8C8D;
+  color:white;
   height: 100%;
 
 }
