@@ -11,7 +11,6 @@ const Certifications = () => {
   const { register, handleSubmit, control, formState: { errors } } = useForm();
   const { currentUser } = useSelector(state => state.userAdminLoginReducer);
   const token = localStorage.getItem('token');
-
   const axiosWithToken = axios.create({
     headers: { Authorization: `Bearer ${token}` }
   });

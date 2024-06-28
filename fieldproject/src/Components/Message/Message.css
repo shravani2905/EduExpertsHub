@@ -1,0 +1,40 @@
+.message-page {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .email-container {
+    margin-top: 20px;
+  }
+  
+  .email-display {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .message-input {
+    width: 80%;
+    height: 100px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .send-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .send-button:hover {
+    background-color: #45a049;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  

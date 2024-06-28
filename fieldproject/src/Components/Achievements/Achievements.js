@@ -45,10 +45,9 @@ const AchievementsForm = () => {
         professionalAchievements: profUrls.filter(item => item !== null),
       };
 
-      // Now, send `dataToSubmit` to your backend API
-      // Example: await axios.post('http://localhost:4000/your-api-endpoint', dataToSubmit);
+      await axios.post('http://localhost:4000/user-api/data', dataToSubmit);
 
-      console.log(dataToSubmit);
+      console.log("Form submitted successfully:", dataToSubmit);
       setLoading(false);
       setErr('');
     } catch (error) {

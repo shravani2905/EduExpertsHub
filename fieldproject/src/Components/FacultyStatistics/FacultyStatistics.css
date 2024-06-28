@@ -1,0 +1,102 @@
+.faculty-calculator {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 80px;
+}
+
+.calculator-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.calculator-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    margin-right: 10px;
+}
+
+.form-input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100px;
+}
+
+.form-button {
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.form-button:hover {
+    background-color: #0056b3;
+}
+
+.loading-message {
+    text-align: center;
+}
+
+.error-message {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.requirements-title {
+    margin-top: 20px;
+}
+
+.requirements-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table-header {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    background-color: #f2f2f2;
+}
+
+.requirements-row {
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.table-data {
+    padding: 8px;
+}
+
+.cadre-calculation {
+    margin-top: 20px;
+}
+
+.cadre-title {
+    margin-bottom: 10px;
+}
+
+.cadre-label {
+    margin-bottom: 5px;
+}
+
+.cadre-percentage {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+}

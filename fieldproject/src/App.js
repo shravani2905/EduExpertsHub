@@ -4,6 +4,8 @@ import RootLayout from "./Components/RootLayout/RootLayout";
 import Home from "./Components/Home/Home";
 import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
+import Message from "./Components/Message/Message";
+import Preview from "./Components/Preview/Preview";
 import Userdashboard from "./Components/Userdashboard/Userdashboard";
 import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 import Achievements from "./Components/Achievements/Achievements";
@@ -85,6 +87,10 @@ function App() {
               path: "qualification",
               element: <Qualification />,
             },
+            {
+              path:"preview/:id",
+              element:<Preview/>
+            }
           ],
         },
         {
@@ -98,6 +104,10 @@ function App() {
         {
           path: "faculty-statistics",
           element: <FacultyStatistics />,
+        },
+        {
+          path: "message/:id",
+          element: <Message />,
         },
       ],
     },

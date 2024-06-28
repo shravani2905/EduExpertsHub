@@ -89,10 +89,10 @@ const PromotionsForm = () => {
             className={`promotions-form-select ${errors.position ? 'error-border' : ''}`}
           >
             <option value="" disabled>Select your position</option>
-            <option value="assistant professor">Assistant Professor</option>
-            <option value="senior assistant professor">Senior Assistant Professor</option>
-            <option value="associate professor">Associate Professor</option>
-            <option value="professor">Professor</option>
+            <option value="Assistant professor">Assistant Professor</option>
+            <option value="Senior assistant professor">Senior Assistant Professor</option>
+            <option value="Associate professor">Associate Professor</option>
+            <option value="Professor">Professor</option>
             <option value="H.O.D">H.O.D</option>
             <option value="sectional head">Sectional Head</option>
           </select>

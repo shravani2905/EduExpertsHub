@@ -57,6 +57,19 @@ adminApp.get('/userinfo', verifyToken, expressAsyncHandler(async (req, res) => {
         res.status(500).send({ message: "Internal Server Error", error: error });
     }
 }));
+adminApp.get('/userinfo/:id', verifyToken, expressAsyncHandler(async (req, res) => {
+    const currentUserFacultyId = req.params.id; // Assuming facultyId is in req.params.id
+
+    try {
+        const user = await userinfo.findOne({ facultyId: currentUserFacultyId });
+        if (!user) {
+            return res.status(404).send({ message: "User not found" });
+        }
+        res.status(200).send({ message: "User fetched successfully", data: user });
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error", error: error });
+    }
+}));
 
 // Export the adminApp router
 module.exports = adminApp;

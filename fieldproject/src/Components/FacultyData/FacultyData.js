@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import './FacultyData.css';
 
 function UserInfo() {
@@ -15,6 +16,7 @@ function UserInfo() {
   const [designationFilter, setDesignationFilter] = useState('');
   const [joiningDateFromFilter, setJoiningDateFromFilter] = useState('');
   const [joiningDateToFilter, setJoiningDateToFilter] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -58,20 +60,27 @@ function UserInfo() {
     setJoiningDateToFilter(e.target.value);
   };
 
+  const handleSearchQueryChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   const filteredUserData = userData.filter(user => {
     const userJoiningDate = new Date(user.dateOfJoining).toLocaleDateString();
     return (
       (departmentFilter === '' || user.department.toLowerCase() === departmentFilter.toLowerCase()) &&
       (designationFilter === '' || user.position.toLowerCase() === designationFilter.toLowerCase()) &&
       (joiningDateFromFilter === '' || new Date(userJoiningDate) >= new Date(joiningDateFromFilter)) &&
-      (joiningDateToFilter === '' || new Date(userJoiningDate) <= new Date(joiningDateToFilter))
+      (joiningDateToFilter === '' || new Date(userJoiningDate) <= new Date(joiningDateToFilter)) &&
+      (searchQuery === '' || 
+        user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.facultyId.toString().toLowerCase().includes(searchQuery.toLowerCase()) // Include search by Faculty ID
+      )
     );
   });
-
+  
   // Unique department and designation options for dropdowns
   const uniqueDepartments = Array.from(new Set(userData.map(user => user.department)));
   const uniqueDesignations = Array.from(new Set(userData.map(user => user.position)));
-  const uniqueJoiningDates = Array.from(new Set(userData.map(user => new Date(user.dateOfJoining).toLocaleDateString())));
 
   return (
     <div className="user-info-container">
@@ -122,6 +131,17 @@ function UserInfo() {
         </div>
       </div>
 
+      <div className="filter-search mx-auto">
+        <input
+          className='inputfield'
+          type="text"
+          id="searchQuery"
+          placeholder='Search'
+          value={searchQuery}
+          onChange={handleSearchQueryChange}
+        />
+      </div>
+
       {/* Loading and Error Handling */}
       {loading ? (
         <p>Loading...</p>
@@ -139,6 +159,7 @@ function UserInfo() {
               <th>Date of Joining</th>
               <th>CV</th>
               <th>More Details</th>
+              <th>Send Message</th>
             </tr>
           </thead>
           <tbody>
@@ -159,10 +180,15 @@ function UserInfo() {
                       {expandedRows[user._id] ? 'Hide Details' : 'Show Details'}
                     </button>
                   </td>
+                  <td>
+                    <Link to={`/message/${user._id}`} state={{ user }}>
+                      <button className='btn'>Message</button>
+                    </Link>
+                  </td>
                 </tr>
                 {expandedRows[user._id] && (
                   <tr>
-                    <td colSpan="8">
+                    <td colSpan="9">
                       <div className="expanded-row">
                         <p><strong>Aadhar Proof:</strong> <a href={user.aadharProofUrl} target="_blank" rel="noopener noreferrer">View Aadhar Proof</a></p>
                         <p><strong>PAN Proof:</strong> <a href={user.panProofUrl} target="_blank" rel="noopener noreferrer">View PAN Proof</a></p>
@@ -197,4 +223,3 @@ function UserInfo() {
 }
 
 export default UserInfo;
-

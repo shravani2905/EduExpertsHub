@@ -34,6 +34,9 @@ function Userdashboard() {
           <div className="sidebar-item">
             <Link to="funded-projects">Funded Projects</Link>
           </div>
+          <div className="sidebar-item">
+            <Link to="preview/:id">Preview</Link>
+          </div>
         </div>
         <div className="main-content">
           <Outlet/>

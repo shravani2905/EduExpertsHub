@@ -1,95 +1,105 @@
 .user-info-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-top: 30px; /* Adjusted margin-top */
-  }
-  
-  .user-info-heading {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-    margin-top: 50px;
-  }
-  .daterange{
-    width:150px;
-  }
-  
-  .user-info-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-  }
-  
-  .user-info-table th,
-  .user-info-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  .user-info-table th {
-    background-color: #f4f4f4;
-    text-align: left;
-  }
-  
-  .user-info-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .user-info-table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .user-info-table th,
-  .user-info-table td a {
-    color: #333;
-  }
-  
-  .user-info-table td a {
-    text-decoration: none;
-    color: #007bff;
-  }
-  
-  .user-info-table td a:hover {
-    text-decoration: underline;
-  }
-  
-  .error-message {
-    color: red;
-    text-align: center;
-  }
-  
-  .filter-controls-horizontal {
-    display: flex;
-    justify-content: space-between;
-    background-color: #e0e0e0;
-    padding: 10px;
-    margin-bottom: 20px;
-    margin-top: 20px; /* Adjusted margin-top */
-  }
-  
-  .filter-dropdown,
-  .filter-date-range {
-    display: flex;
-    align-items: center;
-  }
-  
-  .filter-dropdown label,
-  .filter-date-range label {
-    margin-right: 10px;
-  }
-  
-  .filter-dropdown select,
-  .filter-date-range input[type='date'] {
-    padding: 8px;
-    font-size: 14px;
-  }
-  
-  .expanded-row {
-    padding: 10px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    margin-top: 10px;
-  }
-  
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 30px; /* Adjusted margin-top */
+  margin-bottom: 20px;
+}
+
+.user-info-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  margin-top: 50px;
+}
+
+.daterange {
+  width: 150px;
+}
+
+.user-info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.user-info-table th,
+.user-info-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.user-info-table th {
+  background-color: #f4f4f4;
+  text-align: left;
+}
+
+.user-info-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.user-info-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.user-info-table th,
+.user-info-table td a {
+  color: #333;
+}
+
+.user-info-table td a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.user-info-table td a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+}
+
+.filter-controls-horizontal {
+  display: flex;
+  justify-content: space-between;
+  background-color: #e0e0e0;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px; /* Adjusted margin-top */
+}
+
+.filter-dropdown,
+.filter-date-range,
+.filter-search {
+  display: flex;
+  align-items: center;
+}
+
+.filter-dropdown label,
+.filter-date-range label,
+.filter-search label {
+  margin-right: 10px;
+}
+
+.filter-dropdown select,
+.filter-date-range input[type='date'],
+.filter-search input[type='text'] {
+  padding: 8px;
+  font-size: 14px;
+}
+
+.expanded-row {
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.inputfield{
+  border-radius: 10px;
+  display: block;
+  margin:auto;
+}

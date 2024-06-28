@@ -99,6 +99,20 @@ const Basic = () => {
                 />
               </div>
               <div className="basic-form-group">
+                <label htmlFor="name">
+                  Email: <span className="basic-form-required">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  placeholder="Enter email"
+                  {...register('email')}
+                  className="basic-form-input"
+                />
+              </div>
+              <div className="basic-form-group">
                 <label htmlFor="aadhar">
                   Aadhar Card Number: <span className="basic-form-required">*</span>
                 </label>
