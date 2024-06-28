@@ -1,83 +1,79 @@
-.certificationsform
-{
-    width: 500px;
-    background-color:  #d4eaf5;
-    
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  display: block;
-  margin: auto;
-  margin-top: 140px;
-  border-radius: 10px;
-}
-.certifications-form-container-custom{
-  margin-left: 200px;
+.certifications-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-  .hd {
-    text-align: center;
-   color: black;
-    margin-bottom: 40px;
-  }
-  
-  .form-group-custom {
-    margin-bottom: 20px;
-  }
-  
-  .label-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .label-custom {
-    margin-bottom: 5px;
-    font-weight: bold;
-    margin-right: 10px; /* Add margin to separate label from button */
-  }
-  
-  .certificationsform-button-custom {
-    padding: 8px 16px;
-    background-color: #557cef; /* Green */
-    border: none;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  .certificationsform-button-submit-custom{
-    padding: 8px 16px;
-    background-color:  #198754; /* Green */
-    border: none;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .certificationsform-input-custom,
-  .textarea-custom {
-    width: calc(50% - 5px);
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: white;
-    margin-right: 5px;
-    font-size: 1rem;
-  }
-  
-  .certificationsform-input-custom[type="file"] {
-    padding: 5px; /* Slightly smaller padding for file inputs */
-  }
-  
-  .file-input-group-custom {
-    margin-bottom: 10px;
-    display: flex;
-  }
-  
-  .error-custom {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-  }
+.certifications-form {
+  width: 500px;
+  background-color: #d4eaf5;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.certifications-form-heading {
+  color: black;
+  margin-bottom: 20px;
+}
+
+.certifications-group {
+  margin-bottom: 20px;
+}
+
+.certifications-label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.certifications-button {
+  padding: 8px 16px;
+  background-color: #557cef;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.certifications-input {
+  width: calc(50% - 5px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+  margin-right: 5px;
+  font-size: 1rem;
+}
+
+.certifications-input[type="file"] {
+  padding: 5px;
+}
+
+.certifications-error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.certifications-submit-button {
+  padding: 8px 16px;
+  background-color: #198754;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

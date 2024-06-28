@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { ThreeDots } from 'react-loader-spinner';
 import './Designation.css';
 
-const DesignationForm = () => {
+function DesignationForm() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [serverMessage, setServerMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -18,34 +18,29 @@ const DesignationForm = () => {
   });
 
   const uploadFile = async (file) => {
-    const formData = new FormData();
-    formData.append('file', file);
-
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", 'fpimages'); // Use 'fpimages' for image uploads
     try {
-      const cloudName = 'drzr9z0ai'; // Replace with your Cloudinary cloud name
-      const uploadPreset = 'fpimages'; // Replace with your Cloudinary upload preset
-      const api = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`; // Adjust for different file types or APIs
-      const res = await axios.post(api, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        params: {
-          upload_preset: uploadPreset,
-        },
-      });
-
-      return res.data.secure_url;
+      const cloudName = 'drzr9z0ai';
+      const api = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`; // Use '/image/upload' for image uploads
+      const res = await axios.post(api, data);
+      const { secure_url } = res.data;
+      return secure_url;
     } catch (error) {
-      console.error('Error uploading file:', error);
-      throw new Error('Failed to upload file');
+      console.error("Error uploading image:", error.response ? error.response.data : error.message);
+      throw new Error("Failed to upload image");
     }
   };
 
   const onSubmit = async (data) => {
     setLoading(true);
+    setServerMessage('');
+    setFileError('');
+
     try {
-      const cvUrl = data.cvFile ? await uploadFile(data.cvFile[0]) : null;
-      const certificateUrl = data.certificateFile ? await uploadFile(data.certificateFile[0]) : null;
+      const cvUrl = data.cvFile[0] ? await uploadFile(data.cvFile[0]) : null;
+      const certificateUrl = data.certificateFile[0] ? await uploadFile(data.certificateFile[0]) : null;
 
       if (!cvUrl || !certificateUrl) {
         setFileError('File upload failed');
@@ -68,11 +63,11 @@ const DesignationForm = () => {
       } else {
         setServerMessage(res.data.message);
       }
-      setLoading(false);
       reset();
     } catch (error) {
       setFileError('An error occurred while submitting the form');
       console.error('Error submitting form:', error);
+    } finally {
       setLoading(false);
     }
   };
@@ -81,7 +76,7 @@ const DesignationForm = () => {
     <div className="designation-form-container">
       <div className="designation-form">
         <h1 className="designation-form-heading">Designation</h1>
-        {serverMessage && <p className="error-message">{serverMessage}</p>}
+        {serverMessage && <p className="success-message">{serverMessage}</p>}
         {fileError && <p className="error-message">{fileError}</p>}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="designation-form-row">
@@ -120,7 +115,7 @@ const DesignationForm = () => {
               type="date"
               id="joiningDate"
               {...register('joiningDate', { required: 'Joining Date is required' })}
-              className={`designation-form-input mx-1 ${errors.joiningDate ? 'error-border' : ''}`}
+              className={`designation-form-input ${errors.joiningDate ? 'error-border' : ''}`}
             />
             {errors.joiningDate && <span className="error-message">{errors.joiningDate.message}</span>}
           </div>
@@ -129,6 +124,7 @@ const DesignationForm = () => {
             <input
               type="file"
               id="cvFile"
+              accept="image/*"
               {...register('cvFile', { required: 'CV file is required' })}
               className='designation-form-input-file'
             />
@@ -139,6 +135,7 @@ const DesignationForm = () => {
             <input
               type="file"
               id="certificateFile"
+              accept="image/*"
               {...register('certificateFile', { required: 'Certificate file is required' })}
               className='designation-form-input-file'
             />

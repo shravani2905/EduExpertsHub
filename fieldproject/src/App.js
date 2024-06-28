@@ -15,6 +15,8 @@ import Patents from "./Components/Patents/Patents";
 import Promotions from "./Components/Promotions/Promotions";
 import Publications from "./Components/Publications/Publications";
 import Qualification from "./Components/Qualification/Qualification";
+import FacultyData from "./Components/FacultyData/FacultyData"
+import FacultyStatistics from "./Components/FacultyStatistics/FacultyStatistics";
 import "./App.css";
 
 function App() {
@@ -88,6 +90,14 @@ function App() {
         {
           path: "admin-dashboard",
           element: <AdminDashboard />,
+        },
+        {
+          path: "faculty-data",
+          element: < FacultyData/>,
+        },
+        {
+          path: "faculty-statistics",
+          element: <FacultyStatistics />,
         },
       ],
     },

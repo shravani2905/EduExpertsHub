@@ -17,7 +17,7 @@ function Navbar() {
     <div className="navbar">
       <img
         src="https://www.careerguide.com/career/wp-content/uploads/2023/09/VNR-VJIET.png"
-        width="170px"
+        width="200px"
         height="70px"
         alt="Logo"
       />

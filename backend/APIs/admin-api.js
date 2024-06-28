@@ -1,22 +1,26 @@
-//mini application for Author API
 const exp = require('express');
 const adminApp = exp.Router();
 const bcryptjs = require('bcryptjs');
-adminApp.use(exp.json());
 const expressAsyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
-const verifyToken=require('../Middlewares/verfiyToken')
+const verifyToken = require('../Middlewares/verfiyToken');
 require('dotenv').config();
+
+adminApp.use(exp.json());
+
 let adminscollection;
-//get usercollection app
-adminApp.use((req,res,next)=>{
-    adminscollection=req.app.get('adminscollection')
-    next()
-})
-//Author registration
+let userinfo;
+
+adminApp.use((req, res, next) => {
+    adminscollection = req.app.get('adminscollection');
+    userinfo = req.app.get('userinfo');
+    next();
+});
+
+// Author registration
 adminApp.post('/user', expressAsyncHandler(async (req, res) => {
     const newUser = req.body;
-    const dbuser = await adminscollection.findOne({facultyId: newUser.facultyId });
+    const dbuser = await adminscollection.findOne({ facultyId: newUser.facultyId });
     if (dbuser != null) {
         res.send({ message: "user exists" });
     } else {
@@ -26,7 +30,8 @@ adminApp.post('/user', expressAsyncHandler(async (req, res) => {
         res.send({ message: "User created" });
     }
 }));
-//Author Login
+
+// Author login
 adminApp.post('/login', expressAsyncHandler(async (req, res) => {
     const userCred = req.body;
     const dbUser = await adminscollection.findOne({ facultyId: userCred.facultyId });
@@ -43,12 +48,15 @@ adminApp.post('/login', expressAsyncHandler(async (req, res) => {
     }
 }));
 
-
+// Get all user information
+adminApp.get('/userinfo', verifyToken, expressAsyncHandler(async (req, res) => {
+    try {
+        const users = await userinfo.find().toArray();
+        res.status(200).send({ message: "Users fetched successfully", data: users });
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error", error: error });
+    }
+}));
 
 // Export the adminApp router
 module.exports = adminApp;
-
-
-
-
-

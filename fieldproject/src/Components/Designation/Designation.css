@@ -5,6 +5,13 @@
   align-items: center;
   height: 100vh; /* Use the full height of the viewport */
   padding: 15px;
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
+.designation-form-input-file {
+ 
+  border: none; /* Remove any border */
+  outline: none; /* Remove outline on focus */
 }
 
 .designation-form {
@@ -16,6 +23,7 @@
   max-width: 500px;
   text-align: center;
   margin-top:15px;
+  margin-bottom: 90px;
 }
 
 .designation-form-heading {

@@ -25,8 +25,11 @@ const Certifications = () => {
       const cloudName = 'drzr9z0ai'; // Replace with your Cloudinary cloud name
       const api = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
       const res = await axios.post(api, data);
-      const { secure_url } = res.data;
-      return secure_url;
+      if (res.data.secure_url) {
+        return res.data.secure_url;
+      } else {
+        throw new Error('Failed to upload image');
+      }
     } catch (error) {
       console.error('Error uploading image:', error.response ? error.response.data : error.message);
       throw new Error('Failed to upload image');
@@ -116,7 +119,6 @@ const Certifications = () => {
                   <input
                     type="file"
                     className="certifications-input"
-                    
                     {...field}
                   />
                 )}
@@ -170,13 +172,15 @@ const Certifications = () => {
 
       {/* Loading Spinner */}
       {loading && (
-        <ThreeDots
-          height={80}
-          width={80}
-          radius={9}
-          color="#4fa94d"
-          ariaLabel="three-dots-loading"
-        />
+        <div className="loading-spinner">
+          <ThreeDots
+            height={80}
+            width={80}
+            radius={9}
+            color="#4fa94d"
+            ariaLabel="three-dots-loading"
+          />
+        </div>
       )}
     </div>
   );
