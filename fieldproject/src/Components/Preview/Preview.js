@@ -12,6 +12,7 @@ function Preview() {
   const { currentUser } = useSelector((state) => state.userAdminLoginReducer);
   const token = localStorage.getItem('token');
   const componentRef = useRef();
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -42,7 +43,6 @@ function Preview() {
 
   return (
     <div className="user-info-container">
-      {/* Loading and Error Handling */}
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -53,7 +53,7 @@ function Preview() {
             <table className="user-info-table">
               <thead>
                 <tr>
-                  <th></th> {/* Empty cell for image */}
+                  <th></th>
                   <th>Faculty ID</th>
                   <th>Name</th>
                   <th>Department</th>
@@ -84,39 +84,70 @@ function Preview() {
                       <tr>
                         <td colSpan="7">
                           <div className="expanded-row">
-                            <p><strong>Education:</strong> {user.education}</p>
-                            <p><strong>Inter Percentage:</strong> {user.interPercentage}</p>
-                            <p><strong>UG Percentage:</strong> {user.ugPercentage}</p>
-                            <p><strong>PG Branch:</strong> {user.pgBranch}</p>
-                            <p><strong>PG Percentage:</strong> {user.pgPercentage}</p>
-                            <p><strong>PhD Specialization:</strong> {user.phdSpecialization}</p>
-                            <p><strong>PhD Status:</strong> {user.phdStatus}</p>
-                            <p><strong>UG Branch:</strong> {user.ugBranch}</p>
+                            <div className="expanded-row-content">
+                              <div className="user-info-section column">
+                                <p><strong>Aadhar:</strong> {user.aadhar}</p>
+                                <p><strong>PAN:</strong> {user.pan}</p>
+                                <p><strong>Date of Joining:</strong> {user.dateOfJoining}</p>
+                                <p><strong>Department:</strong> {user.department}</p>
+                                <p><strong>Position:</strong> {user.position}</p>
+                                <p><strong>Email:</strong> {user.email}</p>
+                                <p><strong>Date of Modification:</strong> {new Date(user.dateOfModification).toLocaleDateString()}</p>
+                              </div>
+                              <div className="user-info-section column">
+                                
+                                <p><strong>Education:</strong> {user.education}</p>
+                                <p><strong>GPA:</strong> {user.gpa}</p>
+                                <p><strong>Inter Percentage:</strong> {user.interPercentage}</p>
+                                <p><strong>UG Branch:</strong> {user.ugBranch}</p>
+                                <p><strong>UG Percentage:</strong> {user.ugPercentage}</p>
+                                <p><strong>PG Branch:</strong> {user.pgBranch}</p>
+                                <p><strong>PG Percentage:</strong> {user.pgPercentage}</p>
+                              </div>
+                            </div>
                             <div className="document-container">
-                              <p><strong>CV:</strong></p>
-                              <img src={user.cvUrl} alt="CV" className="document-image" />
-                              <p><strong>Aadhar Proof:</strong></p>
-                              <img src={user.aadharProofUrl} alt="Aadhar Proof" className="document-image" />
-                              <p><strong>PAN Proof:</strong></p>
-                              <img src={user.panProofUrl} alt="PAN Proof" className="document-image" />
-                              <p><strong>Joining Order:</strong></p>
-                              <img src={user.joiningOrderUrl} alt="Joining Order" className="document-image" />
-                              <p><strong>Office Order:</strong></p>
-                              <img src={user.officeOrderUrl} alt="Office Order" className="document-image" />
-                              <p><strong>10th Certificate:</strong></p>
-                              <img src={user.certificate10Url} alt="10th Certificate" className="document-image" />
-                              <p><strong>Inter Certificate:</strong></p>
-                              <img src={user.certificateInterUrl} alt="Inter Certificate" className="document-image" />
-                              <p><strong>UG Certificate:</strong></p>
-                              <img src={user.certificateUGUrl} alt="UG Certificate" className="document-image" />
-                              <p><strong>PG Certificate:</strong></p>
-                              <img src={user.certificatePGUrl} alt="PG Certificate" className="document-image" />
-                              {user.phdStatus === 'Completed' && (
-                                <>
+                              <div>
+                                <p><strong>Aadhar Proof:</strong></p>
+                                <img src={user.aadharProofUrl} alt="Aadhar Proof" className="document-image" />
+                              </div>
+                              <div>
+                                <p className='mt-5'><strong>PAN Proof:</strong></p>
+                                <img src={user.panProofUrl} alt="PAN Proof" className="document-image" />
+                              </div>
+                              <div>
+                                <p><strong>Joining Order:</strong></p>
+                                <img src={user.joiningOrderUrl} alt="Joining Order" className="document-image" />
+                              </div>
+                              <div>
+                                <p><strong>Office Order:</strong></p>
+                                <img src={user.officeOrderUrl} alt="Office Order" className="document-image" />
+                              </div>
+                              <div>
+                                <p><strong>10th Certificate:</strong></p>
+                                <img src={user.certificate10Url} alt="10th Certificate" className="document-image" />
+                              </div>
+                              <div>
+                                <p><strong>Inter Certificate:</strong></p>
+                                <img src={user.certificateInterUrl} alt="Inter Certificate" className="document-image" />
+                              </div>
+                              <div>
+                                <p><strong>UG Certificate:</strong></p>
+                                <img src={user.certificateUGUrl} alt="UG Certificate" className="document-image" />
+                              </div>
+                              <div>
+                                <p><strong>PG Certificate:</strong></p>
+                                <img src={user.certificatePGUrl} alt="PG Certificate" className="document-image" />
+                              </div>
+                              {user.certificatePhDUrl && (
+                                <div>
                                   <p><strong>PhD Certificate:</strong></p>
                                   <img src={user.certificatePhDUrl} alt="PhD Certificate" className="document-image" />
-                                </>
+                                </div>
                               )}
+                              <div>
+                                <p><strong>CV:</strong></p>
+                                <img src={user.cvUrl} alt="CV" className="document-image" />
+                              </div>
                             </div>
                           </div>
                         </td>

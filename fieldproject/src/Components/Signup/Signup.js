@@ -23,7 +23,7 @@ function Signup() {
       }
     } catch (error) {
       console.error("There was an error creating the account:", error);
-      setErr("There was an error creating the account. Please try again.");
+      setErr("User with the given ID already exists");
     }
   }
 

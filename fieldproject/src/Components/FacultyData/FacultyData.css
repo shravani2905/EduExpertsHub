@@ -92,14 +92,21 @@
 }
 
 .expanded-row {
+  display: flex;
+  flex-wrap: wrap;
   padding: 10px;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   margin-top: 10px;
 }
 
-.inputfield{
+.expanded-row p {
+  flex: 1 1 50%;
+  margin: 5px 0;
+}
+
+.inputfield {
   border-radius: 10px;
   display: block;
-  margin:auto;
+  margin: auto;
 }

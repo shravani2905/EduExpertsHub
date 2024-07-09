@@ -190,7 +190,9 @@ function UserInfo() {
                   <tr>
                     <td colSpan="9">
                       <div className="expanded-row">
+                      <p><strong>Aadhar:</strong> {user.aadhar}</p>
                         <p><strong>Aadhar Proof:</strong> <a href={user.aadharProofUrl} target="_blank" rel="noopener noreferrer">View Aadhar Proof</a></p>
+                        <p><strong>PAN :</strong> {user.pan}</p>
                         <p><strong>PAN Proof:</strong> <a href={user.panProofUrl} target="_blank" rel="noopener noreferrer">View PAN Proof</a></p>
                         <p><strong>Joining Order:</strong> <a href={user.joiningOrderUrl} target="_blank" rel="noopener noreferrer">View Joining Order</a></p>
                         <p><strong>Office Order:</strong> <a href={user.officeOrderUrl} target="_blank" rel="noopener noreferrer">View Office Order</a></p>

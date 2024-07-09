@@ -1,64 +1,89 @@
 .user-info-container {
-    margin: 20px;
-  }
+  margin: 20px;
+}
+
+.user-info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.user-info-table th,
+.user-info-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.user-info-table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.user-image {
+  width: 150px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.expanded-row {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+
+.expanded-row-content {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.user-info-section {
+  flex: 1 1 50%; /* Two columns */
+  box-sizing: border-box;
+  padding: 10px;
+}
+.document-image {
+  width: 100%;
+  display: block;
+  margin: auto; /* Ensure image fills its container */
+  max-height: 420px; 
+  max-width:500px; /* Set maximum width for larger images */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 50px;
   
-  .user-info-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  .user-info-table th,
-  .user-info-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .user-info-table th {
-    background-color: #f2f2f2;
-    color: #333;
-  }
-  
-  .user-image {
-    width: 75px;
-    height: auto;
-    border-radius: 50%;
-  }
-  
-  .expanded-row {
-    background-color: #f9f9f9;
-    padding: 10px;
-    border: 1px solid #ddd;
-  }
-  
-  .document-container {
-    margin-top: 10px;
-  }
-  
-  .document-image {
-    width: 100%;
-    width:200px;
-    max-width: 600px;
-    margin-bottom: 10px;
-    display: block;
-  }
-  
-  .print-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 20px;
-  }
-  
-  .print-button:hover {
-    background-color: #45a049;
-  }
-  
-  .error-message {
-    color: red;
-  }
-  
+}
+
+.document-container {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.document-container > div {
+  flex: 1 1 100%; /* One image per row */
+  margin: 10px 0;
+  text-align: center;
+}
+
+
+
+.print-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.print-button:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  color: red;
+}
